@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[CB21 Tech Blog]]></title>
+  <title><![CDATA[CB21 Tech Blog TestTest]]></title>
   <link href="http://cb21dev.github.io/atom.xml" rel="self"/>
   <link href="http://cb21dev.github.io/"/>
-  <updated>2013-08-07T23:51:03+09:00</updated>
+  <updated>2013-08-07T23:53:59+09:00</updated>
   <id>http://cb21dev.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Django チュートリアル [準備編]]]></title>
-    <link href="http://cb21dev.github.io/blog/2013/08/06/sample-django-app-1/"/>
-    <updated>2013-08-06T23:24:00+09:00</updated>
-    <id>http://cb21dev.github.io/blog/2013/08/06/sample-django-app-1</id>
+    <link href="http://cb21dev.github.io/blog/2013/08/08/sample-django-app-1/"/>
+    <updated>2013-08-08T23:24:00+09:00</updated>
+    <id>http://cb21dev.github.io/blog/2013/08/08/sample-django-app-1</id>
     <content type="html"><![CDATA[<p>こんにちは。Catchball 21　技術部の森本です。</p>
 
 <p>これから何回かに分けて、DjangoによるWebアプリ開発について紹介しようと思います。<br/>
