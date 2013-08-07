@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Django チュートリアル [準備編]"
-date: 2013-08-06 23:24
-comments: false
+date: 2013-08-08 23:24
+comments: true
 categories: django python tutorial
 ---
 
