@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: python | CB21 Tech Blog TestTest]]></title>
+  <title><![CDATA[Category: python | CB21 Tech Blog]]></title>
   <link href="http://cb21dev.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://cb21dev.github.io/"/>
-  <updated>2013-08-07T22:19:05+09:00</updated>
+  <updated>2013-08-07T23:46:22+09:00</updated>
   <id>http://cb21dev.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -47,8 +47,65 @@
 
 <h2>準備</h2>
 
-<p>では、早速準備に移って行きましょう。
-とは言っても</p>
+<p>では、早速準備に移って行きましょう。<br/>
+まずはPythonの仮想環境を構築することができるvirtualenvを導入しましょう．</p>
+
+<p>virtualenvはPythonのパッケージ管理ツールであるpipからインストールすることができます．</p>
+
+<pre><code>% pip install virtualenv
+</code></pre>
+
+<p>virtualenvのラッパーで仮想環境を管理しやすくするvirtualenvwrapperも導入しましょう．
+こちらもpipでインストールことができます．</p>
+
+<pre><code>% pip install virtualenvwrapper
+</code></pre>
+
+<p>virtualenv, virtualenvwrapperを使うためにはshellに設定が必要になります．<br/>
+zshを使用している場合は<code>.zshrc</code>に以下の行を追加します．(bashの場合も同じように<code>.bashrc</code>に記述すれば大丈夫だと思います.)</p>
+
+<p><div><script src='https://gist.github.com/b9901e9b2b96073d5cd7.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+
+<p>virtualenvwrapperの導入まで完了したら，仮想環境を作成しましょう．<br/>
+今回は仮想環境としてdjango_tutorialを使用します</p>
+
+<pre><code>% mkvirtualenv django_tutorial
+New python executable in django_tutorial/bin/python
+Installing setuptools............done.
+Installing pip...............done.
+</code></pre>
+
+<p>shellのプロンプトの先頭に下記のように仮想環境名が表示されていれば，成功です．</p>
+
+<pre><code>(django_tutorial)%
+</code></pre>
+
+<p>virtualenvwrapperについて簡単に使い方を紹介しておきます．</p>
+
+<pre><code>(django_tutorial)% deactivate #deactivateで仮想環境から抜けることができます．
+% workon #workonで作成した仮想環境の一覧を見ることができます．
+django_tutorial
+% workon django_tutorial # workon &lt;仮想環境名&gt; で仮想環境に入ることができます．
+(django_tutorial)% mkvirtualenv hogehoge # mkvirtualenv &lt;仮想環境名&gt; で仮想環境を作成することができます．
+New python executable in hogehoge/bin/python
+Installing setuptools............done.
+Installing pip...............done.
+(hogehoge)% deactivate
+(hogehoge)% rmvirtualenv hogehoge # rmvirtualenv &lt;仮想環境名&gt;で指定した仮想環境を削除することができます．
+Removing hogehoge...
+</code></pre>
+
+<p>仮想環境の作成まで完了したら，Djangoをインストールします．
+こちらもpipからインストールすることができます．</p>
+
+<pre><code>(django_tutorial)% pip install django
+</code></pre>
+
+<p>以上で準備は完了です！</p>
+
+<p>次回はDjangoのプロジェクト作成からモデルの作成までを紹介させて頂く予定です．</p>
 ]]></content>
   </entry>
   

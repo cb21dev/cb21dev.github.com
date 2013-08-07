@@ -2,18 +2,18 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://cb21dev.github.io/blog/2013/08/06/sample-django-app-1/</loc>
-        <lastmod>2013-08-07T00:28:36+09:00</lastmod>
+        <lastmod>2013-08-07T23:43:08+09:00</lastmod>
     </url>
     <url>
         <loc>http://cb21dev.github.io/blog/archives/</loc>
-        <lastmod>2013-08-07T00:28:36+09:00</lastmod>
+        <lastmod>2013-08-07T23:43:08+09:00</lastmod>
     </url>
     <url>
         <loc>http://cb21dev.github.io/</loc>
-        <lastmod>2013-08-07T00:28:36+09:00</lastmod>
+        <lastmod>2013-08-07T23:43:08+09:00</lastmod>
     </url>
     <url>
         <loc>http://cb21dev.github.io/robots.txt</loc>
-        <lastmod>2013-08-06T18:54:17+09:00</lastmod>
+        <lastmod>2013-08-07T21:41:34+09:00</lastmod>
     </url>
 </urlset>
