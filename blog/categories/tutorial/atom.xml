@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://cb21dev.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: tutorial | My Octopress Blog]]></title>
+  <link href="http://cb21dev.github.io/blog/categories/tutorial/atom.xml" rel="self"/>
   <link href="http://cb21dev.github.io/"/>
   <updated>2013-08-07T09:56:09+09:00</updated>
   <id>http://cb21dev.github.io/</id>
@@ -30,7 +30,7 @@
 <p>DjangoはPythonで書かれたオープンソースのWebアプリケーションフレームワークで、元々はニュース系のサイトを管理する目的で開発されたそうです。
 いわゆるオールインワン型のフレームワークで特徴として、MVCパターンによく似た、MTVパターン（Model &ndash; Template &ndash; View）に従って開発することや標準でリッチな管理インターフェイスを持つこと等が挙げられます。</p>
 
-<p><a href="https://www.djangoproject.com/"><img src="http://cb21dev.github.io/images/0806/django_web_site.png" title="Django Web Site" alt="this is a django web site image"></a></p>
+<p><a href="https://www.djangoproject.com/"><img src="/images/0806/django_web_site.png" title="&lsquo;Django Web Site&rsquo; &lsquo;this is a django web site image&rsquo;" ></a></p>
 
 <p>弊社でも受託開発や自社サービス開発にDjangoを利用しています。</p>
 
