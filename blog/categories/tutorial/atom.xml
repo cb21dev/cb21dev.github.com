@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: tutorial | CB21 Tech Blog]]></title>
+  <link href="http://cb21dev.github.io/blog/categories/tutorial/atom.xml" rel="self"/>
+  <link href="http://cb21dev.github.io/"/>
+  <updated>2013-08-08T09:46:23+09:00</updated>
+  <id>http://cb21dev.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Django チュートリアル[準備編]]]></title>
+    <link href="http://cb21dev.github.io/blog/2013/08/08/django-tutorial-01/"/>
+    <updated>2013-08-08T09:41:00+09:00</updated>
+    <id>http://cb21dev.github.io/blog/2013/08/08/django-tutorial-01</id>
+    <content type="html"><![CDATA[<p>こんにちは。Catchball 21　技術部の森本です。</p>
+
+<p>これから何回かに分けて、DjangoによるWebアプリ開発について紹介しようと思います。<br/>
+今回は準備編になります。</p>
+
+<h2>Djangoって？</h2>
+
+<p>と、その前にご存知無い方の為にDjangoについて簡単に紹介させて頂きます。</p>
+
+<p>DjangoはPythonで書かれたオープンソースのWebアプリケーションフレームワークで、元々はニュース系のサイトを管理する目的で開発されたそうです。
+いわゆるオールインワン型のフレームワークで特徴として、MVCパターンによく似た、MTVパターン（Model &ndash; Template &ndash; View）に従って開発することや標準でリッチな管理インターフェイスを持つこと等が挙げられます。</p>
+
+<p><a href="https://www.djangoproject.com/"><img src="/images/20130808/django_web_site.png" title="&lsquo;Django Web Site&rsquo; &lsquo;this is a django web site image&rsquo;" ></a></p>
+
+<p>弊社でも受託開発や自社サービス開発にDjangoを利用しています。</p>
+
+<h2>開発環境</h2>
+
+<p>今回のチュートリアルでは下記の環境を想定しています。</p>
+
+<ul>
+<li>Mac OS X 10.7</li>
+<li>Python 2.7</li>
+<li>Django 1.5</li>
+</ul>
+
+
+<h2>準備</h2>
+
+<p>では、早速準備に移って行きましょう。<br/>
+まずはPythonの仮想環境を構築することができるvirtualenvを導入しましょう．</p>
+
+<p>virtualenvはPythonのパッケージ管理ツールであるpipからインストールすることができます．</p>
+
+<pre><code>% pip install virtualenv
+</code></pre>
+
+<p>virtualenvのラッパーで仮想環境を管理しやすくするvirtualenvwrapperも導入しましょう．
+こちらもpipでインストールことができます．</p>
+
+<pre><code>% pip install virtualenvwrapper
+</code></pre>
+
+<p>virtualenv, virtualenvwrapperを使うためにはshellに設定が必要になります．<br/>
+zshを使用している場合は<code>.zshrc</code>に以下の行を追加します．(bashの場合も同じように<code>.bashrc</code>に記述すれば大丈夫だと思います.)</p>
+
+<p><div><script src='https://gist.github.com/b9901e9b2b96073d5cd7.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+
+<p>virtualenvwrapperの導入まで完了したら，仮想環境を作成しましょう．<br/>
+今回は仮想環境としてdjango_tutorialを使用します</p>
+
+<pre><code>% mkvirtualenv django_tutorial
+New python executable in django_tutorial/bin/python
+Installing setuptools............done.
+Installing pip...............done.
+</code></pre>
+
+<p>shellのプロンプトの先頭に下記のように仮想環境名が表示されていれば，成功です．</p>
+
+<pre><code>(django_tutorial)%
+</code></pre>
+
+<p>virtualenvwrapperについて簡単に使い方を紹介しておきます．</p>
+
+<pre><code>(django_tutorial)% deactivate #deactivateで仮想環境から抜けることができます．
+% workon #workonで作成した仮想環境の一覧を見ることができます．
+django_tutorial
+% workon django_tutorial # workon &lt;仮想環境名&gt; で仮想環境に入ることができます．
+(django_tutorial)% mkvirtualenv hogehoge # mkvirtualenv &lt;仮想環境名&gt; で仮想環境を作成することができます．
+New python executable in hogehoge/bin/python
+Installing setuptools............done.
+Installing pip...............done.
+(hogehoge)% deactivate
+(hogehoge)% rmvirtualenv hogehoge # rmvirtualenv &lt;仮想環境名&gt;で指定した仮想環境を削除することができます．
+Removing hogehoge...
+</code></pre>
+
+<p>仮想環境の作成まで完了したら，Djangoをインストールします．
+こちらもpipからインストールすることができます．</p>
+
+<pre><code>(django_tutorial)% pip install django
+</code></pre>
+
+<p>以上で準備は完了です！</p>
+
+<p>次回はDjangoのプロジェクト作成からモデルの作成までを紹介させて頂く予定です．</p>
+]]></content>
+  </entry>
+  
+</feed>
