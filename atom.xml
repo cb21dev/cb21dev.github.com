@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[三人寄れば文殊の知恵]]></title>
+  <link href="http://cb21dev.github.io/atom.xml" rel="self"/>
+  <link href="http://cb21dev.github.io/"/>
+  <updated>2013-08-09T16:57:09+09:00</updated>
+  <id>http://cb21dev.github.io/</id>
+  <author>
+    <name><![CDATA[cb21 development team]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>
