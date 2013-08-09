@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[三人寄れば文殊の知恵]]></title>
-  <link href="http://cb21dev.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: tutorial | 三人寄れば文殊の知恵]]></title>
+  <link href="http://cb21dev.github.io/blog/categories/tutorial/atom.xml" rel="self"/>
   <link href="http://cb21dev.github.io/"/>
   <updated>2013-08-09T16:28:47+09:00</updated>
   <id>http://cb21dev.github.io/</id>
@@ -30,7 +30,7 @@
 <p>DjangoはPythonで書かれたオープンソースのWebアプリケーションフレームワークで、元々はニュース系のサイトを管理する目的で開発されたそうです。
 いわゆるオールインワン型のフレームワークで特徴として、MVCパターンによく似た、MTVパターン（Model &ndash; Template &ndash; View）に従って開発することや標準でリッチな管理インターフェイスを持つこと等が挙げられます。</p>
 
-<p><a href="https://www.djangoproject.com/"><img src="http://cb21dev.github.io/images/20130808/django_web_site.png" title="Django Web Site" alt="this is a django web site image"></a></p>
+<p><a href="https://www.djangoproject.com/"><img src="/images/20130808/django_web_site.png" title="&lsquo;Django Web Site&rsquo; &lsquo;this is a django web site image&rsquo;" ></a></p>
 
 <p>弊社でも受託開発や自社サービス開発にDjangoを利用しています。</p>
 
@@ -64,9 +64,9 @@
 <p>virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です．<br/>
 zshを使用している場合は<code>.zshrc</code>に以下の行を追加します．(bashの場合も同じように<code>.bashrc</code>に記述すれば大丈夫だと思います.)</p>
 
-<div><script src='https://gist.github.com/b9901e9b2b96073d5cd7.js'></script>
+<p><div><script src='https://gist.github.com/b9901e9b2b96073d5cd7.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>virtualenvwrapperの導入まで完了したら，仮想環境を作成しましょう．<br/>
 今回は仮想環境名としてdjango_tutorialを使用します.</p>
