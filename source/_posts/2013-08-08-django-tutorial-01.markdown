@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "Django チュートリアル[準備編]"
-date: 2013-08-12 09:41
-comments: true
+date: 2013-08-10 09:41
+comments: false
 published: false
+author: Shinichi Morimoto
 categories: django python tutorial
 ---
 
@@ -48,7 +49,15 @@ virtualenvのラッパーで仮想環境の管理をしやすくするvirtualenv
 virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です．  
 zshを使用している場合は`.zshrc`に以下の行を追加します．(bashの場合も同じように`.bashrc`に記述すれば大丈夫だと思います.)
 
-{% gist id=b9901e9b2b96073d5cd7 %}
+{% codeblock .zhsrc lang:sh %}
+
+if [ -f `which virtualenvwrapper.sh` ]; then
+    export WORKON_HOME=$HOME/.virtualenvs
+    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+    source `which virtualenvwrapper.sh`
+fi
+
+{% endcodeblock %}
 
 virtualenvwrapperの導入まで完了したら，仮想環境を作成しましょう．  
 今回は仮想環境名としてdjango_tutorialを使用します.
