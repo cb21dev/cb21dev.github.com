@@ -1,20 +1,20 @@
 ---
 layout: post
 title: "Django チュートリアル[準備編]"
-date: 2013-08-08 09:41
+date: 2013-08-12 09:41
 comments: true
 published: false
 categories: django python tutorial
 ---
 
-こんにちは。Catchball 21　技術部の森本です。
+こんにちは。Catchball21　技術部の森本です。
 
 これから何回かに分けて、DjangoによるWebアプリ開発について紹介しようと思います。  
 今回は準備編になります。
 
 ## Djangoって？
 
-と、その前にご存知無い方の為にDjangoについて簡単に紹介させて頂きます。
+と、その前にDjangoをご存知無い方の為に簡単にご紹介します。
 
 DjangoはPythonで書かれたオープンソースのWebアプリケーションフレームワークで、元々はニュース系のサイトを管理する目的で開発されたそうです。
 いわゆるオールインワン型のフレームワークで特徴として、MVCパターンによく似た、MTVパターン（Model - Template - View）に従って開発することや標準でリッチな管理インターフェイスを持つこと等が挙げられます。
@@ -40,18 +40,18 @@ virtualenvはPythonのパッケージ管理ツールであるpipからインス�
 
     % pip install virtualenv
 
-virtualenvのラッパーで仮想環境を管理しやすくするvirtualenvwrapperも導入しましょう．
+virtualenvのラッパーで仮想環境の管理をしやすくするvirtualenvwrapperも導入しましょう．
 こちらもpipでインストールことができます．
 
     % pip install virtualenvwrapper
 
-virtualenv, virtualenvwrapperを使うためにはshellに設定が必要になります．  
+virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です．  
 zshを使用している場合は`.zshrc`に以下の行を追加します．(bashの場合も同じように`.bashrc`に記述すれば大丈夫だと思います.)
 
 {% gist id=b9901e9b2b96073d5cd7 %}
 
 virtualenvwrapperの導入まで完了したら，仮想環境を作成しましょう．  
-今回は仮想環境としてdjango_tutorialを使用します
+今回は仮想環境名としてdjango_tutorialを使用します.
 
     % mkvirtualenv django_tutorial
     New python executable in django_tutorial/bin/python
@@ -84,4 +84,4 @@ virtualenvwrapperについて簡単に使い方を紹介しておきます．
 以上で準備は完了です！  
 
 
-次回はDjangoのプロジェクト作成からモデルの作成までを紹介させて頂く予定です．
+次回はDjangoのプロジェクト作成からモデルの作成までを紹介する予定です．
