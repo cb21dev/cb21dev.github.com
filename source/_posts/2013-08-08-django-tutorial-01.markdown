@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "Django チュートリアル[準備編]"
-date: 2013-08-10 09:41
+date: 2013-08-19 00:00
 comments: false
-published: false
+published: true
 author: Shinichi Morimoto
-categories: django python tutorial MorimotoShinichi
+categories: django python tutorial
 ---
 
 こんにちは。Catchball21　技術部の森本です。
