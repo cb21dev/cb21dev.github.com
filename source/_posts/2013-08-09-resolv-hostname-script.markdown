@@ -1,15 +1,14 @@
 ---
 layout: post
-title: テスト
-date: 2013-08-11 17:16
-comments: true
+title:  
+date: 2013-08-26 00:00
+comments: false 
 published: false
 author: UmedaTakefumi
-categories: perl
+categories: python UmedaTakefumi
 ---
 
-ウェーイ
+こんにちは、Catchball21　技術部の梅田です。
 
 
-あいうえお
 

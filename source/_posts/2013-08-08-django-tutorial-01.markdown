@@ -5,7 +5,7 @@ date: 2013-08-10 09:41
 comments: false
 published: false
 author: Shinichi Morimoto
-categories: django python tutorial
+categories: django python tutorial MorimotoShinichi
 ---
 
 こんにちは。Catchball21　技術部の森本です。
