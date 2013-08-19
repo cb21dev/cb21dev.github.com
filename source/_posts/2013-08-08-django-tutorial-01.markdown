@@ -10,7 +10,7 @@ categories: django python tutorial
 
 こんにちは。Catchball21　技術部の森本です。
 
-これから何回かに分けて、DjangoによるWebアプリ開発について紹介しようと思います。  
+これから何回かに分けて、DjangoによるWebアプリ開発についてご紹介しようと思います。  
 今回は準備編になります。
 
 ## Djangoって？
@@ -22,7 +22,7 @@ DjangoはPythonで書かれたオープンソースのWebアプリケーショ�
 
 [{% img /images/20130808/django_web_site.png 'Django Web Site' 'this is a django web site image' %}](https://www.djangoproject.com/)
 
-弊社でも受託開発や自社サービス開発にDjangoを利用しています。
+当社でも受託開発や自社サービス開発にDjangoを利用しています。
 
 ## 開発環境
 
@@ -93,4 +93,4 @@ virtualenvwrapperについて簡単に使い方を紹介しておきます．
 以上で準備は完了です！  
 
 
-次回はDjangoのプロジェクト作成からモデルの作成までを紹介する予定です．
+次回はDjangoのプロジェクト作成からモデルの作成までをご紹介する予定です．
