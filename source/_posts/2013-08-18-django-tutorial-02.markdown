@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "Django チュートリアル[プロジェクト作成-モデル作成]"
-date: 2013-08-18 17:12
+date: 2013-08-26 00:00
 comments: false
 published: false
 author: Shinichi Morimoto
-categories: django python tutorial MorimotoShinichi
+categories: django python tutorial
 ---
 
 こんにちは。Catchball21　技術部の森本です。
@@ -13,14 +13,15 @@ categories: django python tutorial MorimotoShinichi
 蒸し暑い日が続いていますが，体調等は崩されていないでしょうか？  
 僕は少し夏バテ気味なので，早く涼しくなって欲しいと祈るばかりです．
 
-今回は前回につづいて，DjangoによるWebアプリ開発についてご紹介します．  
-今回はプロジェクト作成からモデル作成までの流れについてご紹介します．
+今回は前回に続いて、DjangoによるWebアプリ開発についてご紹介します.  
+プロジェクト・アプリ・モデルの各作成について詳しく解説していきます.
 
-## 今回作成するWebアプリ
+## 作成するWebアプリ
 
-今回のチュートリアルでは題材としてシンプルな掲示板を取り上げます．  
+今回のチュートリアルでは、シンプルな掲示板を題材にしています.  
 完成イメージは下記のようなイメージになります．
 
+<完成イメージを貼り付け予定＞
 
 フォームから入力し，入力した内容を下部に表示する単純なCRUDを行うWebアプリですね．
 
@@ -40,7 +41,7 @@ Djangoでは1.4から`project template`という機能が追加されました�
 つまりプロジェクトを通じて得たノウハウをテンプレート化し，次回のプロジェクトでも簡単に使用することができる機能と言えます．  
 テンプレートはgithub等で公開されているものがあるので，それらを使用することで初心者でもDjangoのベストプラクティスを利用することができます．
 
-`project template`については，hirokikyさんが素晴らしい紹介記事を書かれていますので，ご一読頂ければと思います．
+`project template`については，hirokikyさんが素晴らしい[紹介記事](http://d.hatena.ne.jp/hirokiky/20120702/1341231182)を書いてらっしゃるので、皆さんご覧になってみてください。
 
 今回は`django-skel`というテンプレートを使用したいと思います．  
 先程作成した`myproject`ディレクトリを削除して，下記コマンドを実行し，新たに`django-skel`テンプレートを利用するプロジェクトを作成しましょう．
