@@ -3,7 +3,7 @@ layout: post
 title: "Django チュートリアル[プロジェクト作成-モデル作成]"
 date: 2013-08-26 00:00
 comments: false
-published: false
+published: true
 author: Shinichi Morimoto
 categories: django python tutorial
 ---
