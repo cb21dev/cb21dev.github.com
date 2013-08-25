@@ -21,7 +21,7 @@ categories: django python tutorial
 今回のチュートリアルでは、シンプルな掲示板を題材にしています.  
 完成イメージは下記のようなイメージになります．
 
-<完成イメージを貼り付け予定＞
+{% img /images/20130826/20130826_1.png 'SimpleBoard image' 'this is a SimpleBoard image' %}
 
 フォームから入力し，入力した内容を下部に表示する単純なCRUDを行うWebアプリですね．
 
