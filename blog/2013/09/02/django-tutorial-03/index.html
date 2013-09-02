@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>三人寄れば文殊の知恵</title>
+  <title>Django チュートリアル[view(ビュー)作成] - 三人寄れば文殊の知恵</title>
   <meta name="author" content="cb21 development team">
 
   
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://cb21dev.github.io">
+  <link rel="canonical" href="http://cb21dev.github.io/blog/2013/09/02/django-tutorial-03">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="三人寄れば文殊の知恵" type="application/atom+xml">
@@ -76,15 +76,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/09/02/django-tutorial-03/">Django チュートリアル[view(ビュー)作成]</a></h1>
+      <h1 class="entry-title">Django チュートリアル[view(ビュー)作成]</h1>
     
     
       <p class="meta">
@@ -107,7 +104,7 @@
   </header>
 
 
-  <div class="entry-content"><p>こんにちは。Catchball21　技術部の森本です。</p>
+<div class="entry-content"><p>こんにちは。Catchball21　技術部の森本です。</p>
 
 <p>DjangoによるWebアプリ開発のチュートリアルも今回が3回目になります。<br/>
 本日はview(ビュー)の作成についてご説明します。</p>
@@ -405,234 +402,16 @@ Quit the server with CONTROL-C.
 <p>view(ビュー)の作成については以上です。<br/>
 次回はTemplateについてご紹介する予定です。</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/26/django-tutorial-02/">Django チュートリアル[プロジェクト作成-モデル作成]</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Shinichi Morimoto</span></span>
 
-<time datetime="2013-08-26T00:00:00+09:00" pubdate data-updated="true">Aug 26<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>こんにちは。Catchball21　技術部の森本です。</p>
-
-<p>蒸し暑い日が続いていますが、体調等は崩されていないでしょうか？<br/>
-僕は少し夏バテ気味なので、早く涼しくなって欲しいと祈るばかりです。</p>
-
-<p>今回は前回に続いて、DjangoによるWebアプリ開発についてご紹介します。<br/>
-プロジェクト・アプリ・モデルの各作成について詳しく解説していきます。</p>
-
-<h2>作成するWebアプリ</h2>
-
-<p>今回のチュートリアルでは、シンプルな掲示板を題材にしています。<br/>
-完成イメージは下記のようなイメージになります。</p>
-
-<p><img src="/images/20130826/20130826_1.png" title="SimpleBoard image" alt="this is a SimpleBoard image"></p>
-
-<p>フォームから入力し、入力した内容を下部に表示する単純なCRUDを行うWebアプリですね。</p>
-
-<h2>プロジェクト作成</h2>
-
-<p>まずはプロジェクトを作成しましょう。
-Djangoをインストールすると<code>django-admin.py</code>コマンドが併せてインストールされます。
-プロジェクト作成は<code>django-admin.py</code>を使用して、作成します。</p>
-
-<pre><code>(django_tutorial)% django-admin.py startproject myproject
-</code></pre>
-
-<p>上記コマンドを実行すると<code>myproject</code>という名前のディレクトリが作成されます。
-以後はこの<code>myproject</code>内で作業をしていくのですが、その前にプロジェクトについてDjangoの便利な機能をご紹介します。</p>
-
-<p>Djangoでは1.4から<code>project template</code>という機能が追加されました。<br/>
-<code>project template</code>ではフォルダ構成や追加した3rd Party のライブラリ等をテンプレート化し、纏めておくことができます。またそれらのテンプレートを使用してプロジェクトを作成することができます。<br/>
-つまりプロジェクトを通じて得たノウハウをテンプレート化し、次回のプロジェクトでも簡単に使用することができる機能と言えます。<br/>
-テンプレートはgithub等で公開されているものがあるので、それらを使用することで初心者でもDjangoのベストプラクティスを利用することができます。</p>
-
-<p><code>project template</code>については、hirokikyさんが素晴らしい<a href="http://d.hatena.ne.jp/hirokiky/20120702/1341231182">紹介記事</a>を書いてらっしゃるので、皆さんご覧になってみてください。</p>
-
-<p>今回は<code>django-skel</code>というテンプレートを使用したいと思います。<br/>
-先程作成した<code>myproject</code>ディレクトリを削除して、下記コマンドを実行し、新たに<code>django-skel</code>テンプレートを利用するプロジェクトを作成しましょう。</p>
-
-<pre><code>(django_tutorial)% django-admin.py startproject --template=https://github.com/rdegges/django-skel/zipball/master myproject
-</code></pre>
-
-<p><code>myproject</code>ディレクトリが作成されていれば、成功です。</p>
-
-<p><code>myproject</code>ディレクトリに移動し、必要なライブラリをインストールします。<code>django-skell</code>では、<code>reqs</code>ディレクトリ以下に開発環境(<code>dev.txt</code>)と本番環境(<code>prod.txt</code>)で使用するライブラリを分けて記載しています。まずは開発用のライブラリをインストールするだけで良いでしょう。</p>
-
-<pre><code>(django_tutorial)% pip install -r reqs/dev.txt
-</code></pre>
-
-<h2>アプリ作成</h2>
-
-<p>プロジェクトが作成できたら、アプリを作成します。
-django-skelではアプリの配置場所として<code>myproject/apps</code>が用意されている為、<code>myproject/apps</code>配下に作成します。</p>
-
-<pre><code>(django_tutorial)% cd myproject/apps
-(django_tutorial)% python ../../manage.py startapp simpleboard
-</code></pre>
-
-<p><code>myproject/apps</code>配下に<code>simpleboard</code>という名前のディレクトリが作成されていることを確認して下さい。
-また<code>simpleboard</code>配下にはviewとmodelの雛形が作成されます。</p>
-
-<pre><code>(django_tutorial)% ls simpleboard
-__init__.py models.py   tests.py    views.py
-</code></pre>
-
-<p>アプリを作成したら、Djangoに新規作成したアプリを登録する必要があります。<br/>
-<code>myproject/settings/common.py</code>を編集して先程作成した<code>simpleboard</code>を登録しましょう。<br/>
-<code>LOCAL_APPS</code>に下記のように<code>simpleboard</code>を追記します。</p>
-
-<figure class='code'><figcaption><span>common.py </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">LOCAL_APPS</span> <span class="o">=</span> <span class="p">(</span>
-</span><span class='line'>    <span class="s">&#39;apps.simpleboard&#39;</span><span class="p">,</span>
-</span><span class='line'><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>モデル作成</h2>
-
-<p>アプリの作成まで完了したら、いよいよモデルを作っていきましょう。<br/>
-まずは今回必要となるモデルについて考えましょう。<br/>
-今回作成するのはシンプルな一行掲示板の為、最低限入力した内容を保存するカラムだけがあれば問題なさそうです。
-SQLで表すとは下記のような感じになるでしょうか。</p>
-
-<figure class='code'><figcaption><span>models.sql </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="ss">&quot;simpleboard_board&quot;</span> <span class="p">(</span>
-</span><span class='line'>   <span class="ss">&quot;id&quot;</span> <span class="nb">integer</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
-</span><span class='line'>   <span class="ss">&quot;entry&quot;</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
-</span><span class='line'><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ではモデルを作成しましょう。<br/>
-Djangoでは<code>models.py</code>がモデルに対応する為、<code>models.py</code>を編集します。</p>
-
-<figure class='code'><figcaption><span>models.py </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">Board</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">entry</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharFiled</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>上記では<code>entry</code>というフィールドを持った<code>Board</code>モデルを定義しています。
-クラスがDBのテーブル、クラスのアトリビュートがDBのカラムに対応しています。</p>
-
-<p>モデルが定義できたら、DBに反映する必要があります。
-プロジェクトのトップディレクトリに戻り下記コマンドを実行して下さい。</p>
-
-<pre><code>(django_tutorial)% python manage.py syncdb
-Syncing...
-Creating tables ...
-Creating table auth_permission
-Creating table auth_group_permissions
-Creating table auth_group
-Creating table auth_user_groups
-Creating table auth_user_user_permissions
-Creating table auth_user
-Creating table django_content_type
-Creating table django_session
-Creating table django_site
-Creating table django_admin_log
-Creating table south_migrationhistory
-Creating table simpleboard_board
-
-You just installed Django's auth system, which means you don't have any superusers defined.
-Would you like to create one now? (yes/no): yes
-Username (leave blank to use '****): admin
-Email address: admin@*****
-Password:
-Password (again):
-Superuser created successfully.
-Installing custom SQL ...
-Installing indexes ...
-Installed 0 object(s) from 0 fixture(s)
-
-Synced:
- &gt; django.contrib.auth
- &gt; django.contrib.contenttypes
- &gt; django.contrib.sessions
- &gt; django.contrib.sites
- &gt; django.contrib.messages
- &gt; django.contrib.staticfiles
- &gt; django.contrib.humanize
- &gt; django.contrib.admin
- &gt; django.contrib.admindocs
- &gt; south
- &gt; compressor
- &gt; apps.simpleboard
- &gt; debug_toolbar
-
-Not synced (use migrations):
- - djcelery
-(use ./manage.py migrate to migrate these)
-</code></pre>
-
-<p>初めて<code>syncdb</code>を実行した際は、管理者ユーザを作成するかを聞かれます。<br/>
-<code>yes</code>と入力すると、管理者ユーザに必要な情報（ユーザ名、メールアドレス、パスワード）を聞かれるので、適当なものを入力して下さい。
-作成した管理者ユーザは<code>admin site</code>へログインする際に使用します。</p>
-
-<p>以上でモデルの作成は完了です。</p>
-
-<p>次回はviewの作成についてご紹介する予定です。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/19/django-tutorial-01/">Django チュートリアル[準備編]</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -644,124 +423,41 @@ Not synced (use migrations):
   
 
 
-<time datetime="2013-08-19T00:00:00+09:00" pubdate data-updated="true">Aug 19<span>th</span>, 2013</time>
-        
-      </p>
+<time datetime="2013-09-02T00:00:00+09:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/django/'>django</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>こんにちは。Catchball21　技術部の森本です。</p>
-
-<p>これから何回かに分けて、DjangoによるWebアプリ開発についてご紹介しようと思います。<br/>
-今回は準備編になります。</p>
-
-<h2>Djangoって？</h2>
-
-<p>と、その前にDjangoをご存知無い方の為に簡単にご紹介します。</p>
-
-<p>DjangoはPythonで書かれたオープンソースのWebアプリケーションフレームワークで、元々はニュース系のサイトを管理する目的で開発されたそうです。
-いわゆるオールインワン型のフレームワークで特徴として、MVCパターンによく似た、MTVパターン（Model &ndash; Template &ndash; View）に従って開発することや標準でリッチな管理インターフェイスを持つこと等が挙げられます。</p>
-
-<p><a href="https://www.djangoproject.com/"><img src="/images/20130808/django_web_site.png" title="Django Web Site" alt="this is a django web site image"></a></p>
-
-<p>当社でも受託開発や自社サービス開発にDjangoを利用しています。</p>
-
-<h2>開発環境</h2>
-
-<p>今回のチュートリアルでは下記の環境を想定しています。</p>
-
-<ul>
-<li>Mac OS X 10.7</li>
-<li>Python 2.7</li>
-<li>Django 1.5</li>
-</ul>
-
-
-<h2>準備</h2>
-
-<p>では、早速準備に移って行きましょう。<br/>
-まずはPythonの仮想環境を構築することができるvirtualenvを導入しましょう。</p>
-
-<p>virtualenvはPythonのパッケージ管理ツールであるpipからインストールすることができます。</p>
-
-<pre><code>% pip install virtualenv
-</code></pre>
-
-<p>virtualenvのラッパーで仮想環境の管理をしやすくするvirtualenvwrapperも導入しましょう。
-こちらもpipでインストールことができます。</p>
-
-<pre><code>% pip install virtualenvwrapper
-</code></pre>
-
-<p>virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です。<br/>
-zshを使用している場合は<code>.zshrc</code>に以下の行を追加します。(bashの場合も同じように<code>.bashrc</code>に記述すれば大丈夫だと思います。)</p>
-
-<figure class='code'><figcaption><span>.zhsrc </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="k">if</span> <span class="o">[</span> -f <span class="sb">`</span>which virtualenvwrapper.sh<span class="sb">`</span> <span class="o">]</span>; <span class="k">then</span>
-</span><span class='line'><span class="k">    </span><span class="nb">export </span><span class="nv">WORKON_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/.virtualenvs
-</span><span class='line'>    <span class="nb">export </span><span class="nv">VIRTUALENVWRAPPER_PYTHON</span><span class="o">=</span>/usr/local/bin/python
-</span><span class='line'>    <span class="nb">source</span> <span class="sb">`</span>which virtualenvwrapper.sh<span class="sb">`</span>
-</span><span class='line'><span class="k">fi</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>virtualenvwrapperの導入まで完了したら、仮想環境を作成しましょう。<br/>
-今回は仮想環境名としてdjango_tutorialを使用します。</p>
-
-<pre><code>% mkvirtualenv django_tutorial
-New python executable in django_tutorial/bin/python
-Installing setuptools............done.
-Installing pip...............done.
-</code></pre>
-
-<p>shellのプロンプトの先頭に下記のように仮想環境名が表示されていれば、成功です。</p>
-
-<pre><code>(django_tutorial)%
-</code></pre>
-
-<p>virtualenvwrapperについて簡単に使い方を紹介しておきます。</p>
-
-<pre><code>(django_tutorial)% deactivate #deactivateで仮想環境から抜けることができます。
-% workon #workonで作成した仮想環境の一覧を見ることができます。
-django_tutorial
-% workon django_tutorial # workon &lt;仮想環境名&gt; で仮想環境に入ることができます。
-(django_tutorial)% mkvirtualenv hogehoge # mkvirtualenv &lt;仮想環境名&gt; で仮想環境を作成することができます。
-New python executable in hogehoge/bin/python
-Installing setuptools............done.
-Installing pip...............done.
-(hogehoge)% deactivate
-(hogehoge)% rmvirtualenv hogehoge # rmvirtualenv &lt;仮想環境名&gt;で指定した仮想環境を削除することができます。
-Removing hogehoge...
-</code></pre>
-
-<p>仮想環境の作成まで完了したら、Djangoをインストールします。
-こちらもpipからインストールすることができます。</p>
-
-<pre><code>(django_tutorial)% pip install django
-</code></pre>
-
-<p>以上で準備は完了です！</p>
-
-<p>次回はDjangoのプロジェクト作成からモデルの作成までをご紹介する予定です。</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://cb21dev.github.io/blog/2013/09/02/django-tutorial-03/" data-via="" data-counturl="http://cb21dev.github.io/blog/2013/09/02/django-tutorial-03/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
-  
-  
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/26/django-tutorial-02/" title="Previous Post: Django チュートリアル[プロジェクト作成-モデル作成]">&laquo; Django チュートリアル[プロジェクト作成-モデル作成]</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -789,6 +485,7 @@ Removing hogehoge...
 
   
 </aside>
+
 
     </div>
   </div>

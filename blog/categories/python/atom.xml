@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | 三人寄れば文殊の知恵]]></title>
   <link href="http://cb21dev.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://cb21dev.github.io/"/>
-  <updated>2013-08-26T00:17:29+09:00</updated>
+  <updated>2013-09-02T23:20:31+09:00</updated>
   <id>http://cb21dev.github.io/</id>
   <author>
     <name><![CDATA[cb21 development team]]></name>
@@ -14,78 +14,397 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Django チュートリアル[view(ビュー)作成]]]></title>
+    <link href="http://cb21dev.github.io/blog/2013/09/02/django-tutorial-03/"/>
+    <updated>2013-09-02T00:00:00+09:00</updated>
+    <id>http://cb21dev.github.io/blog/2013/09/02/django-tutorial-03</id>
+    <content type="html"><![CDATA[<p>こんにちは。Catchball21　技術部の森本です。</p>
+
+<p>DjangoによるWebアプリ開発のチュートリアルも今回が3回目になります。<br/>
+本日はview(ビュー)の作成についてご説明します。</p>
+
+<h2>MTVモデル</h2>
+
+<p>ビューの説明に移る前に、DjangoのMTVモデルについてご紹介します。<br/>
+MTVモデルはおよそ下記のようなイメージになります。</p>
+
+<p><img src="/images/20130902/20130902_1.png" title="&lsquo;MVT Model&rsquo; &lsquo;this is a MVT Model Image&rsquo;" ></p>
+
+<p>Djangoにおいて、ユーザからリクエストを受け取った際の処理の流れは下記の通りです。</p>
+
+<ol>
+<li>URLディスパッチにより、リクエストされたURLパターンにマッチしたview関数を呼び出す。</li>
+<li>フォームからGETやPOSTでデータを受け取った際は適宜Formオブジェクトを呼び出し、validationを行う。</li>
+<li>Modelを通して，DBからデータを取得する。</li>
+<li>必要なテンプレートを呼び出し、レスポンスを返す。</li>
+</ol>
+
+
+<p>今回説明するviewの最低限の役割は、下記になります。</p>
+
+<ul>
+<li>リクエストを受け取る。</li>
+<li>レスポンスを返す。</li>
+</ul>
+
+
+<h2>Formの作成</h2>
+
+<p>viewの作成に移る前に、まずはFormオブジェクトを作成しましょう。</p>
+
+<p>Webアプリケーションでの悩みどころの一つとして、validationの扱いがあります。<br/>
+DjangoではこのようなForm処理を簡易に扱う為にフォーム処理ライブラリが標準で付属されています。</p>
+
+<p>フォーム処理ライブラリは、validation以外にも下記の機能を持っています。</p>
+
+<blockquote><ol>
+<li>フォームウィジェットから、 HTML フォームを自動的に生成して表示できます。</li>
+<li>提出されたデータに対して、バリデーション規則 (validation rule) を適用できます。</li>
+<li>バリデーションエラーを検出したときに、フォームをエラーメッセージ付きで表示できます。</li>
+<li>提出されたデータを、適切な Python のデータ型に変換できます。</li>
+</ol>
+
+
+<p><a href="http://docs.djangoproject.jp/en/latest/topics/forms/index.html#topics-forms-index">フォームの操作 — Django 1.4 documentation</a></p></blockquote>
+
+<p>ではFormオブジェクトを作成しましょう。Formオブジェクトはforms.pyで定義します。<br/>
+<code>myproject/apps/simpleboard/</code>ディレクトリに<code>forms.py</code>を作成し、下記を記載して下さい。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>forms.py </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Board</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">BoardForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">model</span> <span class="o">=</span> <span class="n">Board</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>上記ではBoardFormクラスの中でmodelとして、Boardモデルを指定しています。<br/>
+たったこれだけのコードで、Model（Boardモデル）から紐付けて、Boardモデルに必要なFormオブジェクトを定義することができます。</p>
+
+<p>では、続いてviewの作成に移りましょう。</p>
+
+<h2>viewの作成</h2>
+
+<p>Djangoのviewは実際にはResponseオブジェクトを返すPythonの関数になります。<br/>
+と言っても、何のことか伝わりずらいので、実際に作成してみましょう。</p>
+
+<p>ちなみにDjangoでは1.3から、より汎用的なクラスベースのviewが導入されています。<br/>
+今回は関数ベースのviewを使用しますが、機会があれば、また別途クラスベースのviewについても解説したいと思います。</p>
+
+<p>viewはviews.pyの中で定義します。<br/>
+<code>myproject/apps/simpleboard/views.py</code>を開いて、下記のように書き換えて下さい。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>views.py </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render_to_response</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Board</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">BoardForm</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">form</span> <span class="o">=</span> <span class="n">BoardForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+</span><span class='line'>        <span class="n">entry</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s">&quot;entry&quot;</span><span class="p">]</span>
+</span><span class='line'>        <span class="k">print</span> <span class="n">entry</span>
+</span><span class='line'>        <span class="n">Board</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+</span><span class='line'>            <span class="n">entry</span><span class="o">=</span><span class="n">entry</span>
+</span><span class='line'>        <span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">entries</span> <span class="o">=</span> <span class="n">Board</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span><span class='line'><span class="n">form</span> <span class="o">=</span> <span class="n">BoardForm</span><span class="p">()</span>
+</span><span class='line'><span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span>
+</span><span class='line'>    <span class="s">&#39;index.html&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span>
+</span><span class='line'>        <span class="n">request</span><span class="p">,</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="s">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+</span><span class='line'>            <span class="s">&#39;entries&#39;</span><span class="p">:</span> <span class="n">entries</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">)</span>
+</span><span class='line'><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>viewの処理の流れは、概ね下記の内容です。</p>
+
+<ol>
+<li>リクエストのメソッドによって、処理を振り分け</li>
+<li>それぞれの処理で必要であれば、モデルからデータを取得</li>
+<li>テンプレートを呼び出し、レスポンスを返す</li>
+</ol>
+
+
+<p>上記の<code>views.py</code>の例では、必要なモジュールのインポート定義の後、<code>def index(request):</code>からがviewの定義になります。
+リクエストを受け取ってからの処理は下記の通りです。</p>
+
+<ol>
+<li>リクエストのメソッドがPOSTかどうかをチェックします。(12行目)</li>
+<li>POSTデータをFormオブジェクトに渡し、validationのチェックをかけます(13, 14行目)</li>
+<li>validationが通っていたら、受け取ったデータをBoardに登録し、トップにリダイレクトするレスポンスを返します。(15-20行目)</li>
+<li>Boardモデルから全てのデータを取得します。(22行目)</li>
+<li>Formオブジェクトを生成します。(23行目)</li>
+<li>テンプレート(<code>index.html</code>)を呼び出し、レスポンスを返します。またテンプレート内で変数のように使用できるコンテキストもこの時に指定します。(24-33行目)</li>
+</ol>
+
+
+<p>テンプレートとして、<code>index.html</code>を指定していますが、まだ作成はしていないですよね。
+<code>myproject/templates/index.html</code>を作成して、下記を記載してください。</p>
+
+<p>```html
+&lt;!DOCTYPE html>
+<html lang="en">
+  <head></p>
+
+<pre><code>&lt;meta charset="utf-8"&gt;
+&lt;title&gt;SimpleBoard&lt;/title&gt;
+</code></pre>
+
+<p>  </head>
+  <body></p>
+
+<pre><code>&lt;form action="/" method="post"&gt;
+
+{% csrf_token %}
+{{ form }}
+&lt;input type="submit" value="登録"&gt;
+&lt;/form&gt;
+
+{% for entry in entries %}
+
+&lt;p&gt;{{ entry.entry }}&lt;/p&gt;
+
+{% endfor %}
+
+</code></pre>
+
+<p>  </body>
+</html></p>
+
+<p>```</p>
+
+<p>テンプレートの詳細については、次回ご紹介させて頂きます。</p>
+
+<p>最後にURLとviewとをマッピングさせる必要があります。<br/>
+URLとviewとのマッピングは<code>myproject/urls.py</code>に記載します。<br/>
+下記のように記載して下さい。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>urls.py </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">from</span> <span class="nn">apps.simpleboard.views</span> <span class="kn">import</span> <span class="n">index</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">See</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;https://docs.djangoproject.com/en/dev/ref/contrib/admin/#hooking-adminsite-instances-into-your-urlconf&quot;</span><span class="o">&gt;</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">docs</span><span class="o">.</span><span class="n">djangoproject</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ref</span><span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="c">#hooking-adminsite-instances-into-your-urlconf&lt;/a&gt;&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">admin</span><span class="o">.</span><span class="n">autodiscover</span><span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">See</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;https://docs.djangoproject.com/en/dev/topics/http/urls/&quot;</span><span class="o">&gt;</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">docs</span><span class="o">.</span><span class="n">djangoproject</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">topics</span><span class="o">/</span><span class="n">http</span><span class="o">/</span><span class="n">urls</span><span class="o">/&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c"># Admin panel and documentation:</span>
+</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/doc/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;django.contrib.admindocs.urls&#39;</span><span class="p">)),</span>
+</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^$&#39;</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>url関数の一つ目の引数にurlのパターン、２つ目の引数にそのurlにマッピングさせたいviewを指定します。
+上記の場合はドメイン名（例：<a href="http://localhost">http://localhost</a>)にアクセスした際にindexのviewを返すようマッピングしています。</p>
+
+<p>では開発サーバ上でSimpleBoardにアクセスしてみましょう。<br/>
+プロジェクトのトップディレクトリで<code>python manage.py runserver</code>を実行して下さい。</p>
+
+<pre><code>(django_tutorial)% python manage.py runserver
+Validating models...
+
+0 errors found
+August 28, 2013 - 19:27:34
+Django version 1.5.2, using settings 'myproject.settings.dev'
+Development server is running at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+</code></pre>
+
+<p>8000番ポートで開発サーバが起動されるので、<a href="http://127.0.0.1:8000/">http://127.0.0.1:8000</a>にアクセスして下さい。<br/>
+下記のような画面が表示されれば、成功です。</p>
+
+<p><img src="/images/20130902/20130902_2.png" title="&lsquo;SimpleBoard&rsquo; &lsquo;this is a SimpleBoard&rsquo;" ></p>
+
+<p>view(ビュー)の作成については以上です。<br/>
+次回はTemplateについてご紹介する予定です。</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Django チュートリアル[プロジェクト作成-モデル作成]]]></title>
     <link href="http://cb21dev.github.io/blog/2013/08/26/django-tutorial-02/"/>
     <updated>2013-08-26T00:00:00+09:00</updated>
     <id>http://cb21dev.github.io/blog/2013/08/26/django-tutorial-02</id>
     <content type="html"><![CDATA[<p>こんにちは。Catchball21　技術部の森本です。</p>
 
-<p>蒸し暑い日が続いていますが，体調等は崩されていないでしょうか？<br/>
-僕は少し夏バテ気味なので，早く涼しくなって欲しいと祈るばかりです．</p>
+<p>蒸し暑い日が続いていますが、体調等は崩されていないでしょうか？<br/>
+僕は少し夏バテ気味なので、早く涼しくなって欲しいと祈るばかりです。</p>
 
-<p>今回は前回に続いて、DjangoによるWebアプリ開発についてご紹介します.<br/>
-プロジェクト・アプリ・モデルの各作成について詳しく解説していきます.</p>
+<p>今回は前回に続いて、DjangoによるWebアプリ開発についてご紹介します。<br/>
+プロジェクト・アプリ・モデルの各作成について詳しく解説していきます。</p>
 
 <h2>作成するWebアプリ</h2>
 
-<p>今回のチュートリアルでは、シンプルな掲示板を題材にしています.<br/>
-完成イメージは下記のようなイメージになります．</p>
+<p>今回のチュートリアルでは、シンプルな掲示板を題材にしています。<br/>
+完成イメージは下記のようなイメージになります。</p>
 
 <p><img src="/images/20130826/20130826_1.png" title="&lsquo;SimpleBoard image&rsquo; &lsquo;this is a SimpleBoard image&rsquo;" ></p>
 
-<p>フォームから入力し，入力した内容を下部に表示する単純なCRUDを行うWebアプリですね．</p>
+<p>フォームから入力し、入力した内容を下部に表示する単純なCRUDを行うWebアプリですね。</p>
 
 <h2>プロジェクト作成</h2>
 
-<p>まずはプロジェクトを作成しましょう．
-Djangoをインストールすると<code>django-admin.py</code>コマンドが併せてインストールされます．
-プロジェクト作成は<code>django-admin.py</code>を使用して，作成します．</p>
+<p>まずはプロジェクトを作成しましょう。
+Djangoをインストールすると<code>django-admin.py</code>コマンドが併せてインストールされます。
+プロジェクト作成は<code>django-admin.py</code>を使用して、作成します。</p>
 
 <pre><code>(django_tutorial)% django-admin.py startproject myproject
 </code></pre>
 
-<p>上記コマンドを実行すると<code>myproject</code>という名前のディレクトリが作成されます．
-以後はこの<code>myproject</code>内で作業をしていくのですが，その前にプロジェクトについてDjangoの便利な機能をご紹介します．</p>
+<p>上記コマンドを実行すると<code>myproject</code>という名前のディレクトリが作成されます。
+以後はこの<code>myproject</code>内で作業をしていくのですが、その前にプロジェクトについてDjangoの便利な機能をご紹介します。</p>
 
-<p>Djangoでは1.4から<code>project template</code>という機能が追加されました．<br/>
-<code>project template</code>ではフォルダ構成や追加した3rd Party のライブラリ等をテンプレート化し，纏めておくことができます．またそれらのテンプレートを使用してプロジェクトを作成することができます．<br/>
-つまりプロジェクトを通じて得たノウハウをテンプレート化し，次回のプロジェクトでも簡単に使用することができる機能と言えます．<br/>
-テンプレートはgithub等で公開されているものがあるので，それらを使用することで初心者でもDjangoのベストプラクティスを利用することができます．</p>
+<p>Djangoでは1.4から<code>project template</code>という機能が追加されました。<br/>
+<code>project template</code>ではフォルダ構成や追加した3rd Party のライブラリ等をテンプレート化し、纏めておくことができます。またそれらのテンプレートを使用してプロジェクトを作成することができます。<br/>
+つまりプロジェクトを通じて得たノウハウをテンプレート化し、次回のプロジェクトでも簡単に使用することができる機能と言えます。<br/>
+テンプレートはgithub等で公開されているものがあるので、それらを使用することで初心者でもDjangoのベストプラクティスを利用することができます。</p>
 
-<p><code>project template</code>については，hirokikyさんが素晴らしい<a href="http://d.hatena.ne.jp/hirokiky/20120702/1341231182">紹介記事</a>を書いてらっしゃるので、皆さんご覧になってみてください。</p>
+<p><code>project template</code>については、hirokikyさんが素晴らしい<a href="http://d.hatena.ne.jp/hirokiky/20120702/1341231182">紹介記事</a>を書いてらっしゃるので、皆さんご覧になってみてください。</p>
 
-<p>今回は<code>django-skel</code>というテンプレートを使用したいと思います．<br/>
-先程作成した<code>myproject</code>ディレクトリを削除して，下記コマンドを実行し，新たに<code>django-skel</code>テンプレートを利用するプロジェクトを作成しましょう．</p>
+<p>今回は<code>django-skel</code>というテンプレートを使用したいと思います。<br/>
+先程作成した<code>myproject</code>ディレクトリを削除して、下記コマンドを実行し、新たに<code>django-skel</code>テンプレートを利用するプロジェクトを作成しましょう。</p>
 
 <pre><code>(django_tutorial)% django-admin.py startproject --template=https://github.com/rdegges/django-skel/zipball/master myproject
 </code></pre>
 
-<p><code>myproject</code>ディレクトリが作成されていれば，成功です．</p>
+<p><code>myproject</code>ディレクトリが作成されていれば、成功です。</p>
 
-<p><code>myproject</code>ディレクトリに移動し，必要なライブラリをインストールします．<code>django-skell</code>では，<code>reqs</code>ディレクトリ以下に開発環境(<code>dev.txt</code>)と本番環境(<code>prod.txt</code>)で使用するライブラリを分けて記載しています．まずは開発用のライブラリをインストールするだけで良いでしょう．</p>
+<p><code>myproject</code>ディレクトリに移動し、必要なライブラリをインストールします。<code>django-skell</code>では、<code>reqs</code>ディレクトリ以下に開発環境(<code>dev.txt</code>)と本番環境(<code>prod.txt</code>)で使用するライブラリを分けて記載しています。まずは開発用のライブラリをインストールするだけで良いでしょう。</p>
 
 <pre><code>(django_tutorial)% pip install -r reqs/dev.txt
 </code></pre>
 
 <h2>アプリ作成</h2>
 
-<p>プロジェクトが作成できたら，アプリを作成します．
-django-skelではアプリの配置場所として<code>myproject/apps</code>が用意されている為，<code>myproject/apps</code>配下に作成します．</p>
+<p>プロジェクトが作成できたら、アプリを作成します。
+django-skelではアプリの配置場所として<code>myproject/apps</code>が用意されている為、<code>myproject/apps</code>配下に作成します。</p>
 
 <pre><code>(django_tutorial)% cd myproject/apps
 (django_tutorial)% python ../../manage.py startapp simpleboard
 </code></pre>
 
-<p><code>myproject/apps</code>配下に<code>simpleboard</code>という名前のディレクトリが作成されていることを確認して下さい．
-また<code>simpleboard</code>配下にはviewとmodelの雛形が作成されます．</p>
+<p><code>myproject/apps</code>配下に<code>simpleboard</code>という名前のディレクトリが作成されていることを確認して下さい。
+また<code>simpleboard</code>配下にはviewとmodelの雛形が作成されます。</p>
 
 <pre><code>(django_tutorial)% ls simpleboard
 __init__.py models.py   tests.py    views.py
 </code></pre>
 
-<p>アプリを作成したら，Djangoに新規作成したアプリを登録する必要があります．<br/>
-<code>myproject/settings/common.py</code>を編集して先程作成した<code>simpleboard</code>を登録しましょう．<br/>
-<code>LOCAL_APPS</code>に下記のように<code>simpleboard</code>を追記します．</p>
+<p>アプリを作成したら、Djangoに新規作成したアプリを登録する必要があります。<br/>
+<code>myproject/settings/common.py</code>を編集して先程作成した<code>simpleboard</code>を登録しましょう。<br/>
+<code>LOCAL_APPS</code>に下記のように<code>simpleboard</code>を追記します。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>common.py </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -108,10 +427,10 @@ __init__.py models.py   tests.py    views.py
 
 <h2>モデル作成</h2>
 
-<p>アプリの作成まで完了したら，いよいよモデルを作っていきましょう．<br/>
-まずは今回必要となるモデルについて考えましょう．<br/>
-今回作成するのはシンプルな一行掲示板の為，最低限入力した内容を保存するカラムだけがあれば問題なさそうです．
-SQLで表すとは下記のような感じになるでしょうか．</p>
+<p>アプリの作成まで完了したら、いよいよモデルを作っていきましょう。<br/>
+まずは今回必要となるモデルについて考えましょう。<br/>
+今回作成するのはシンプルな一行掲示板の為、最低限入力した内容を保存するカラムだけがあれば問題なさそうです。
+SQLで表すとは下記のような感じになるでしょうか。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>models.sql </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -128,8 +447,8 @@ SQLで表すとは下記のような感じになるでしょうか．</p>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>ではモデルを作成しましょう．<br/>
-Djangoでは<code>models.py</code>がモデルに対応する為，<code>models.py</code>を編集します．</p>
+<p>ではモデルを作成しましょう。<br/>
+Djangoでは<code>models.py</code>がモデルに対応する為、<code>models.py</code>を編集します。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>models.py </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -150,11 +469,11 @@ Djangoでは<code>models.py</code>がモデルに対応する為，<code>models.
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>上記では<code>entry</code>というフィールドを持った<code>Board</code>モデルを定義しています．
-クラスがDBのテーブル，クラスのアトリビュートがDBのカラムに対応しています．</p>
+<p>上記では<code>entry</code>というフィールドを持った<code>Board</code>モデルを定義しています。
+クラスがDBのテーブル、クラスのアトリビュートがDBのカラムに対応しています。</p>
 
-<p>モデルが定義できたら，DBに反映する必要があります．
-プロジェクトのトップディレクトリに戻り下記コマンドを実行して下さい．</p>
+<p>モデルが定義できたら、DBに反映する必要があります。
+プロジェクトのトップディレクトリに戻り下記コマンドを実行して下さい。</p>
 
 <pre><code>(django_tutorial)% python manage.py syncdb
 Syncing...
@@ -203,13 +522,13 @@ Not synced (use migrations):
 (use ./manage.py migrate to migrate these)
 </code></pre>
 
-<p>初めて<code>syncdb</code>を実行した際は，管理者ユーザを作成するかを聞かれます．<br/>
-<code>yes</code>と入力すると，管理者ユーザに必要な情報（ユーザ名，メールアドレス，パスワード）を聞かれるので，適当なものを入力して下さい．
-作成した管理者ユーザは<code>admin site</code>へログインする際に使用します．</p>
+<p>初めて<code>syncdb</code>を実行した際は、管理者ユーザを作成するかを聞かれます。<br/>
+<code>yes</code>と入力すると、管理者ユーザに必要な情報（ユーザ名、メールアドレス、パスワード）を聞かれるので、適当なものを入力して下さい。
+作成した管理者ユーザは<code>admin site</code>へログインする際に使用します。</p>
 
-<p>以上でモデルの作成は完了です．</p>
+<p>以上でモデルの作成は完了です。</p>
 
-<p>次回はviewの作成についてご紹介する予定です．</p>
+<p>次回はviewの作成についてご紹介する予定です。</p>
 ]]></content>
   </entry>
   
@@ -248,21 +567,21 @@ Not synced (use migrations):
 <h2>準備</h2>
 
 <p>では、早速準備に移って行きましょう。<br/>
-まずはPythonの仮想環境を構築することができるvirtualenvを導入しましょう．</p>
+まずはPythonの仮想環境を構築することができるvirtualenvを導入しましょう。</p>
 
-<p>virtualenvはPythonのパッケージ管理ツールであるpipからインストールすることができます．</p>
+<p>virtualenvはPythonのパッケージ管理ツールであるpipからインストールすることができます。</p>
 
 <pre><code>% pip install virtualenv
 </code></pre>
 
-<p>virtualenvのラッパーで仮想環境の管理をしやすくするvirtualenvwrapperも導入しましょう．
-こちらもpipでインストールことができます．</p>
+<p>virtualenvのラッパーで仮想環境の管理をしやすくするvirtualenvwrapperも導入しましょう。
+こちらもpipでインストールことができます。</p>
 
 <pre><code>% pip install virtualenvwrapper
 </code></pre>
 
-<p>virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です．<br/>
-zshを使用している場合は<code>.zshrc</code>に以下の行を追加します．(bashの場合も同じように<code>.bashrc</code>に記述すれば大丈夫だと思います.)</p>
+<p>virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です。<br/>
+zshを使用している場合は<code>.zshrc</code>に以下の行を追加します。(bashの場合も同じように<code>.bashrc</code>に記述すれば大丈夫だと思います。)</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>.zhsrc </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -291,8 +610,8 @@ zshを使用している場合は<code>.zshrc</code>に以下の行を追加し�
 </span><span class='line'>&lt;p&gt;
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>virtualenvwrapperの導入まで完了したら，仮想環境を作成しましょう．<br/>
-今回は仮想環境名としてdjango_tutorialを使用します.</p>
+<p>virtualenvwrapperの導入まで完了したら、仮想環境を作成しましょう。<br/>
+今回は仮想環境名としてdjango_tutorialを使用します。</p>
 
 <pre><code>% mkvirtualenv django_tutorial
 New python executable in django_tutorial/bin/python
@@ -300,35 +619,35 @@ Installing setuptools............done.
 Installing pip...............done.
 </code></pre>
 
-<p>shellのプロンプトの先頭に下記のように仮想環境名が表示されていれば，成功です．</p>
+<p>shellのプロンプトの先頭に下記のように仮想環境名が表示されていれば、成功です。</p>
 
 <pre><code>(django_tutorial)%
 </code></pre>
 
-<p>virtualenvwrapperについて簡単に使い方を紹介しておきます．</p>
+<p>virtualenvwrapperについて簡単に使い方を紹介しておきます。</p>
 
-<pre><code>(django_tutorial)% deactivate #deactivateで仮想環境から抜けることができます．
-% workon #workonで作成した仮想環境の一覧を見ることができます．
+<pre><code>(django_tutorial)% deactivate #deactivateで仮想環境から抜けることができます。
+% workon #workonで作成した仮想環境の一覧を見ることができます。
 django_tutorial
-% workon django_tutorial # workon &lt;仮想環境名&gt; で仮想環境に入ることができます．
-(django_tutorial)% mkvirtualenv hogehoge # mkvirtualenv &lt;仮想環境名&gt; で仮想環境を作成することができます．
+% workon django_tutorial # workon &lt;仮想環境名&gt; で仮想環境に入ることができます。
+(django_tutorial)% mkvirtualenv hogehoge # mkvirtualenv &lt;仮想環境名&gt; で仮想環境を作成することができます。
 New python executable in hogehoge/bin/python
 Installing setuptools............done.
 Installing pip...............done.
 (hogehoge)% deactivate
-(hogehoge)% rmvirtualenv hogehoge # rmvirtualenv &lt;仮想環境名&gt;で指定した仮想環境を削除することができます．
+(hogehoge)% rmvirtualenv hogehoge # rmvirtualenv &lt;仮想環境名&gt;で指定した仮想環境を削除することができます。
 Removing hogehoge...
 </code></pre>
 
-<p>仮想環境の作成まで完了したら，Djangoをインストールします．
-こちらもpipからインストールすることができます．</p>
+<p>仮想環境の作成まで完了したら、Djangoをインストールします。
+こちらもpipからインストールすることができます。</p>
 
 <pre><code>(django_tutorial)% pip install django
 </code></pre>
 
 <p>以上で準備は完了です！</p>
 
-<p>次回はDjangoのプロジェクト作成からモデルの作成までをご紹介する予定です．</p>
+<p>次回はDjangoのプロジェクト作成からモデルの作成までをご紹介する予定です。</p>
 ]]></content>
   </entry>
   

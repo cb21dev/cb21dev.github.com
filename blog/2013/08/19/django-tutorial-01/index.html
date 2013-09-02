@@ -134,21 +134,21 @@
 <h2>準備</h2>
 
 <p>では、早速準備に移って行きましょう。<br/>
-まずはPythonの仮想環境を構築することができるvirtualenvを導入しましょう．</p>
+まずはPythonの仮想環境を構築することができるvirtualenvを導入しましょう。</p>
 
-<p>virtualenvはPythonのパッケージ管理ツールであるpipからインストールすることができます．</p>
+<p>virtualenvはPythonのパッケージ管理ツールであるpipからインストールすることができます。</p>
 
 <pre><code>% pip install virtualenv
 </code></pre>
 
-<p>virtualenvのラッパーで仮想環境の管理をしやすくするvirtualenvwrapperも導入しましょう．
-こちらもpipでインストールことができます．</p>
+<p>virtualenvのラッパーで仮想環境の管理をしやすくするvirtualenvwrapperも導入しましょう。
+こちらもpipでインストールことができます。</p>
 
 <pre><code>% pip install virtualenvwrapper
 </code></pre>
 
-<p>virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です．<br/>
-zshを使用している場合は<code>.zshrc</code>に以下の行を追加します．(bashの場合も同じように<code>.bashrc</code>に記述すれば大丈夫だと思います.)</p>
+<p>virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です。<br/>
+zshを使用している場合は<code>.zshrc</code>に以下の行を追加します。(bashの場合も同じように<code>.bashrc</code>に記述すれば大丈夫だと思います。)</p>
 
 <figure class='code'><figcaption><span>.zhsrc </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -164,8 +164,8 @@ zshを使用している場合は<code>.zshrc</code>に以下の行を追加し�
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>virtualenvwrapperの導入まで完了したら，仮想環境を作成しましょう．<br/>
-今回は仮想環境名としてdjango_tutorialを使用します.</p>
+<p>virtualenvwrapperの導入まで完了したら、仮想環境を作成しましょう。<br/>
+今回は仮想環境名としてdjango_tutorialを使用します。</p>
 
 <pre><code>% mkvirtualenv django_tutorial
 New python executable in django_tutorial/bin/python
@@ -173,35 +173,35 @@ Installing setuptools............done.
 Installing pip...............done.
 </code></pre>
 
-<p>shellのプロンプトの先頭に下記のように仮想環境名が表示されていれば，成功です．</p>
+<p>shellのプロンプトの先頭に下記のように仮想環境名が表示されていれば、成功です。</p>
 
 <pre><code>(django_tutorial)%
 </code></pre>
 
-<p>virtualenvwrapperについて簡単に使い方を紹介しておきます．</p>
+<p>virtualenvwrapperについて簡単に使い方を紹介しておきます。</p>
 
-<pre><code>(django_tutorial)% deactivate #deactivateで仮想環境から抜けることができます．
-% workon #workonで作成した仮想環境の一覧を見ることができます．
+<pre><code>(django_tutorial)% deactivate #deactivateで仮想環境から抜けることができます。
+% workon #workonで作成した仮想環境の一覧を見ることができます。
 django_tutorial
-% workon django_tutorial # workon &lt;仮想環境名&gt; で仮想環境に入ることができます．
-(django_tutorial)% mkvirtualenv hogehoge # mkvirtualenv &lt;仮想環境名&gt; で仮想環境を作成することができます．
+% workon django_tutorial # workon &lt;仮想環境名&gt; で仮想環境に入ることができます。
+(django_tutorial)% mkvirtualenv hogehoge # mkvirtualenv &lt;仮想環境名&gt; で仮想環境を作成することができます。
 New python executable in hogehoge/bin/python
 Installing setuptools............done.
 Installing pip...............done.
 (hogehoge)% deactivate
-(hogehoge)% rmvirtualenv hogehoge # rmvirtualenv &lt;仮想環境名&gt;で指定した仮想環境を削除することができます．
+(hogehoge)% rmvirtualenv hogehoge # rmvirtualenv &lt;仮想環境名&gt;で指定した仮想環境を削除することができます。
 Removing hogehoge...
 </code></pre>
 
-<p>仮想環境の作成まで完了したら，Djangoをインストールします．
-こちらもpipからインストールすることができます．</p>
+<p>仮想環境の作成まで完了したら、Djangoをインストールします。
+こちらもpipからインストールすることができます。</p>
 
 <pre><code>(django_tutorial)% pip install django
 </code></pre>
 
 <p>以上で準備は完了です！</p>
 
-<p>次回はDjangoのプロジェクト作成からモデルの作成までをご紹介する予定です．</p>
+<p>次回はDjangoのプロジェクト作成からモデルの作成までをご紹介する予定です。</p>
 </div>
 
 
@@ -264,6 +264,10 @@ Removing hogehoge...
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/09/02/django-tutorial-03/">Django チュートリアル[view(ビュー)作成]</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/08/26/django-tutorial-02/">Django チュートリアル[プロジェクト作成-モデル作成]</a>

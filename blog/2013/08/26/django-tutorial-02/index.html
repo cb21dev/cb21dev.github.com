@@ -9,8 +9,8 @@
   <meta name="author" content="cb21 development team">
 
   
-  <meta name="description" content="こんにちは。Catchball21　技術部の森本です。 蒸し暑い日が続いていますが，体調等は崩されていないでしょうか？
-僕は少し夏バテ気味なので，早く涼しくなって欲しいと祈るばかりです． 今回は前回に続いて、DjangoによるWebアプリ開発についてご紹介します.
+  <meta name="description" content="こんにちは。Catchball21　技術部の森本です。 蒸し暑い日が続いていますが、体調等は崩されていないでしょうか？
+僕は少し夏バテ気味なので、早く涼しくなって欲しいと祈るばかりです。 今回は前回に続いて、DjangoによるWebアプリ開発についてご紹介します。
 プロジェクト・アプリ・ &hellip;">
   
 
@@ -107,72 +107,72 @@
 
 <div class="entry-content"><p>こんにちは。Catchball21　技術部の森本です。</p>
 
-<p>蒸し暑い日が続いていますが，体調等は崩されていないでしょうか？<br/>
-僕は少し夏バテ気味なので，早く涼しくなって欲しいと祈るばかりです．</p>
+<p>蒸し暑い日が続いていますが、体調等は崩されていないでしょうか？<br/>
+僕は少し夏バテ気味なので、早く涼しくなって欲しいと祈るばかりです。</p>
 
-<p>今回は前回に続いて、DjangoによるWebアプリ開発についてご紹介します.<br/>
-プロジェクト・アプリ・モデルの各作成について詳しく解説していきます.</p>
+<p>今回は前回に続いて、DjangoによるWebアプリ開発についてご紹介します。<br/>
+プロジェクト・アプリ・モデルの各作成について詳しく解説していきます。</p>
 
 <h2>作成するWebアプリ</h2>
 
-<p>今回のチュートリアルでは、シンプルな掲示板を題材にしています.<br/>
-完成イメージは下記のようなイメージになります．</p>
+<p>今回のチュートリアルでは、シンプルな掲示板を題材にしています。<br/>
+完成イメージは下記のようなイメージになります。</p>
 
 <p><img src="/images/20130826/20130826_1.png" title="SimpleBoard image" alt="this is a SimpleBoard image"></p>
 
-<p>フォームから入力し，入力した内容を下部に表示する単純なCRUDを行うWebアプリですね．</p>
+<p>フォームから入力し、入力した内容を下部に表示する単純なCRUDを行うWebアプリですね。</p>
 
 <h2>プロジェクト作成</h2>
 
-<p>まずはプロジェクトを作成しましょう．
-Djangoをインストールすると<code>django-admin.py</code>コマンドが併せてインストールされます．
-プロジェクト作成は<code>django-admin.py</code>を使用して，作成します．</p>
+<p>まずはプロジェクトを作成しましょう。
+Djangoをインストールすると<code>django-admin.py</code>コマンドが併せてインストールされます。
+プロジェクト作成は<code>django-admin.py</code>を使用して、作成します。</p>
 
 <pre><code>(django_tutorial)% django-admin.py startproject myproject
 </code></pre>
 
-<p>上記コマンドを実行すると<code>myproject</code>という名前のディレクトリが作成されます．
-以後はこの<code>myproject</code>内で作業をしていくのですが，その前にプロジェクトについてDjangoの便利な機能をご紹介します．</p>
+<p>上記コマンドを実行すると<code>myproject</code>という名前のディレクトリが作成されます。
+以後はこの<code>myproject</code>内で作業をしていくのですが、その前にプロジェクトについてDjangoの便利な機能をご紹介します。</p>
 
-<p>Djangoでは1.4から<code>project template</code>という機能が追加されました．<br/>
-<code>project template</code>ではフォルダ構成や追加した3rd Party のライブラリ等をテンプレート化し，纏めておくことができます．またそれらのテンプレートを使用してプロジェクトを作成することができます．<br/>
-つまりプロジェクトを通じて得たノウハウをテンプレート化し，次回のプロジェクトでも簡単に使用することができる機能と言えます．<br/>
-テンプレートはgithub等で公開されているものがあるので，それらを使用することで初心者でもDjangoのベストプラクティスを利用することができます．</p>
+<p>Djangoでは1.4から<code>project template</code>という機能が追加されました。<br/>
+<code>project template</code>ではフォルダ構成や追加した3rd Party のライブラリ等をテンプレート化し、纏めておくことができます。またそれらのテンプレートを使用してプロジェクトを作成することができます。<br/>
+つまりプロジェクトを通じて得たノウハウをテンプレート化し、次回のプロジェクトでも簡単に使用することができる機能と言えます。<br/>
+テンプレートはgithub等で公開されているものがあるので、それらを使用することで初心者でもDjangoのベストプラクティスを利用することができます。</p>
 
-<p><code>project template</code>については，hirokikyさんが素晴らしい<a href="http://d.hatena.ne.jp/hirokiky/20120702/1341231182">紹介記事</a>を書いてらっしゃるので、皆さんご覧になってみてください。</p>
+<p><code>project template</code>については、hirokikyさんが素晴らしい<a href="http://d.hatena.ne.jp/hirokiky/20120702/1341231182">紹介記事</a>を書いてらっしゃるので、皆さんご覧になってみてください。</p>
 
-<p>今回は<code>django-skel</code>というテンプレートを使用したいと思います．<br/>
-先程作成した<code>myproject</code>ディレクトリを削除して，下記コマンドを実行し，新たに<code>django-skel</code>テンプレートを利用するプロジェクトを作成しましょう．</p>
+<p>今回は<code>django-skel</code>というテンプレートを使用したいと思います。<br/>
+先程作成した<code>myproject</code>ディレクトリを削除して、下記コマンドを実行し、新たに<code>django-skel</code>テンプレートを利用するプロジェクトを作成しましょう。</p>
 
 <pre><code>(django_tutorial)% django-admin.py startproject --template=https://github.com/rdegges/django-skel/zipball/master myproject
 </code></pre>
 
-<p><code>myproject</code>ディレクトリが作成されていれば，成功です．</p>
+<p><code>myproject</code>ディレクトリが作成されていれば、成功です。</p>
 
-<p><code>myproject</code>ディレクトリに移動し，必要なライブラリをインストールします．<code>django-skell</code>では，<code>reqs</code>ディレクトリ以下に開発環境(<code>dev.txt</code>)と本番環境(<code>prod.txt</code>)で使用するライブラリを分けて記載しています．まずは開発用のライブラリをインストールするだけで良いでしょう．</p>
+<p><code>myproject</code>ディレクトリに移動し、必要なライブラリをインストールします。<code>django-skell</code>では、<code>reqs</code>ディレクトリ以下に開発環境(<code>dev.txt</code>)と本番環境(<code>prod.txt</code>)で使用するライブラリを分けて記載しています。まずは開発用のライブラリをインストールするだけで良いでしょう。</p>
 
 <pre><code>(django_tutorial)% pip install -r reqs/dev.txt
 </code></pre>
 
 <h2>アプリ作成</h2>
 
-<p>プロジェクトが作成できたら，アプリを作成します．
-django-skelではアプリの配置場所として<code>myproject/apps</code>が用意されている為，<code>myproject/apps</code>配下に作成します．</p>
+<p>プロジェクトが作成できたら、アプリを作成します。
+django-skelではアプリの配置場所として<code>myproject/apps</code>が用意されている為、<code>myproject/apps</code>配下に作成します。</p>
 
 <pre><code>(django_tutorial)% cd myproject/apps
 (django_tutorial)% python ../../manage.py startapp simpleboard
 </code></pre>
 
-<p><code>myproject/apps</code>配下に<code>simpleboard</code>という名前のディレクトリが作成されていることを確認して下さい．
-また<code>simpleboard</code>配下にはviewとmodelの雛形が作成されます．</p>
+<p><code>myproject/apps</code>配下に<code>simpleboard</code>という名前のディレクトリが作成されていることを確認して下さい。
+また<code>simpleboard</code>配下にはviewとmodelの雛形が作成されます。</p>
 
 <pre><code>(django_tutorial)% ls simpleboard
 __init__.py models.py   tests.py    views.py
 </code></pre>
 
-<p>アプリを作成したら，Djangoに新規作成したアプリを登録する必要があります．<br/>
-<code>myproject/settings/common.py</code>を編集して先程作成した<code>simpleboard</code>を登録しましょう．<br/>
-<code>LOCAL_APPS</code>に下記のように<code>simpleboard</code>を追記します．</p>
+<p>アプリを作成したら、Djangoに新規作成したアプリを登録する必要があります。<br/>
+<code>myproject/settings/common.py</code>を編集して先程作成した<code>simpleboard</code>を登録しましょう。<br/>
+<code>LOCAL_APPS</code>に下記のように<code>simpleboard</code>を追記します。</p>
 
 <figure class='code'><figcaption><span>common.py </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -186,10 +186,10 @@ __init__.py models.py   tests.py    views.py
 
 <h2>モデル作成</h2>
 
-<p>アプリの作成まで完了したら，いよいよモデルを作っていきましょう．<br/>
-まずは今回必要となるモデルについて考えましょう．<br/>
-今回作成するのはシンプルな一行掲示板の為，最低限入力した内容を保存するカラムだけがあれば問題なさそうです．
-SQLで表すとは下記のような感じになるでしょうか．</p>
+<p>アプリの作成まで完了したら、いよいよモデルを作っていきましょう。<br/>
+まずは今回必要となるモデルについて考えましょう。<br/>
+今回作成するのはシンプルな一行掲示板の為、最低限入力した内容を保存するカラムだけがあれば問題なさそうです。
+SQLで表すとは下記のような感じになるでしょうか。</p>
 
 <figure class='code'><figcaption><span>models.sql </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -203,8 +203,8 @@ SQLで表すとは下記のような感じになるでしょうか．</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>ではモデルを作成しましょう．<br/>
-Djangoでは<code>models.py</code>がモデルに対応する為，<code>models.py</code>を編集します．</p>
+<p>ではモデルを作成しましょう。<br/>
+Djangoでは<code>models.py</code>がモデルに対応する為、<code>models.py</code>を編集します。</p>
 
 <figure class='code'><figcaption><span>models.py </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -222,11 +222,11 @@ Djangoでは<code>models.py</code>がモデルに対応する為，<code>models.
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>上記では<code>entry</code>というフィールドを持った<code>Board</code>モデルを定義しています．
-クラスがDBのテーブル，クラスのアトリビュートがDBのカラムに対応しています．</p>
+<p>上記では<code>entry</code>というフィールドを持った<code>Board</code>モデルを定義しています。
+クラスがDBのテーブル、クラスのアトリビュートがDBのカラムに対応しています。</p>
 
-<p>モデルが定義できたら，DBに反映する必要があります．
-プロジェクトのトップディレクトリに戻り下記コマンドを実行して下さい．</p>
+<p>モデルが定義できたら、DBに反映する必要があります。
+プロジェクトのトップディレクトリに戻り下記コマンドを実行して下さい。</p>
 
 <pre><code>(django_tutorial)% python manage.py syncdb
 Syncing...
@@ -275,13 +275,13 @@ Not synced (use migrations):
 (use ./manage.py migrate to migrate these)
 </code></pre>
 
-<p>初めて<code>syncdb</code>を実行した際は，管理者ユーザを作成するかを聞かれます．<br/>
-<code>yes</code>と入力すると，管理者ユーザに必要な情報（ユーザ名，メールアドレス，パスワード）を聞かれるので，適当なものを入力して下さい．
-作成した管理者ユーザは<code>admin site</code>へログインする際に使用します．</p>
+<p>初めて<code>syncdb</code>を実行した際は、管理者ユーザを作成するかを聞かれます。<br/>
+<code>yes</code>と入力すると、管理者ユーザに必要な情報（ユーザ名、メールアドレス、パスワード）を聞かれるので、適当なものを入力して下さい。
+作成した管理者ユーザは<code>admin site</code>へログインする際に使用します。</p>
 
-<p>以上でモデルの作成は完了です．</p>
+<p>以上でモデルの作成は完了です。</p>
 
-<p>次回はviewの作成についてご紹介する予定です．</p>
+<p>次回はviewの作成についてご紹介する予定です。</p>
 </div>
 
 
@@ -332,6 +332,8 @@ Not synced (use migrations):
         <a class="basic-alignment left" href="/blog/2013/08/19/django-tutorial-01/" title="Previous Post: Django チュートリアル[準備編]">&laquo; Django チュートリアル[準備編]</a>
       
       
+        <a class="basic-alignment right" href="/blog/2013/09/02/django-tutorial-03/" title="Next Post: Django チュートリアル[view(ビュー)作成]">Django チュートリアル[view(ビュー)作成] &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -344,6 +346,10 @@ Not synced (use migrations):
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/09/02/django-tutorial-03/">Django チュートリアル[view(ビュー)作成]</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/08/26/django-tutorial-02/">Django チュートリアル[プロジェクト作成-モデル作成]</a>
