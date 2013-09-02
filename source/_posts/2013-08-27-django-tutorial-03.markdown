@@ -3,7 +3,7 @@ layout: post
 title: "Django チュートリアル[view(ビュー)作成]"
 date: 2013-09-02 00:00
 omments: false
-published: false
+published: true
 author: Shinichi Morimoto
 categories: django python tutorial
 ---
@@ -18,7 +18,7 @@ DjangoによるWebアプリ開発のチュートリアルも今回が3回目に�
 ビューの説明に移る前に、DjangoのMTVモデルについてご紹介します。  
 MTVモデルはおよそ下記のようなイメージになります。  
 
-<MTVモデルの図を貼り付け>
+{% img /images/20130902/20130902_1.png 'MVT Model' 'this is a MVT Model Image' %}
 
 Djangoにおいて、ユーザからリクエストを受け取った際の処理の流れは下記の通りです。
 
@@ -214,8 +214,7 @@ url関数の一つ目の引数にurlのパターン、２つ目の引数にそ�
 8000番ポートで開発サーバが起動されるので、[http://127.0.0.1:8000](http://127.0.0.1:8000/)にアクセスして下さい。  
 下記のような画面が表示されれば、成功です。
 
-<SimbleBoard実行画面を貼り付け>
-
+{% img /images/20130902/20130902_2.png 'SimpleBoard' 'this is a SimpleBoard' %}
 
 view(ビュー)の作成については以上です。  
 次回はTemplateについてご紹介する予定です。

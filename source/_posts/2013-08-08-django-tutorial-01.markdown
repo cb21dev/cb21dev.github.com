@@ -35,19 +35,19 @@ DjangoはPythonで書かれたオープンソースのWebアプリケーショ�
 ## 準備
 
 では、早速準備に移って行きましょう。  
-まずはPythonの仮想環境を構築することができるvirtualenvを導入しましょう．
+まずはPythonの仮想環境を構築することができるvirtualenvを導入しましょう。
 
-virtualenvはPythonのパッケージ管理ツールであるpipからインストールすることができます．
+virtualenvはPythonのパッケージ管理ツールであるpipからインストールすることができます。
 
     % pip install virtualenv
 
-virtualenvのラッパーで仮想環境の管理をしやすくするvirtualenvwrapperも導入しましょう．
-こちらもpipでインストールことができます．
+virtualenvのラッパーで仮想環境の管理をしやすくするvirtualenvwrapperも導入しましょう。
+こちらもpipでインストールことができます。
 
     % pip install virtualenvwrapper
 
-virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です．  
-zshを使用している場合は`.zshrc`に以下の行を追加します．(bashの場合も同じように`.bashrc`に記述すれば大丈夫だと思います.)
+virtualenv, virtualenvwrapperを使うためにはshellに追加の設定が必要です。  
+zshを使用している場合は`.zshrc`に以下の行を追加します。(bashの場合も同じように`.bashrc`に記述すれば大丈夫だと思います。)
 
 {% codeblock .zhsrc lang:sh %}
 
@@ -59,38 +59,38 @@ fi
 
 {% endcodeblock %}
 
-virtualenvwrapperの導入まで完了したら，仮想環境を作成しましょう．  
-今回は仮想環境名としてdjango_tutorialを使用します.
+virtualenvwrapperの導入まで完了したら、仮想環境を作成しましょう。  
+今回は仮想環境名としてdjango_tutorialを使用します。
 
     % mkvirtualenv django_tutorial
     New python executable in django_tutorial/bin/python
     Installing setuptools............done.
     Installing pip...............done.
 
-shellのプロンプトの先頭に下記のように仮想環境名が表示されていれば，成功です．
+shellのプロンプトの先頭に下記のように仮想環境名が表示されていれば、成功です。
 
     (django_tutorial)%
 
-virtualenvwrapperについて簡単に使い方を紹介しておきます．
+virtualenvwrapperについて簡単に使い方を紹介しておきます。
 
-    (django_tutorial)% deactivate #deactivateで仮想環境から抜けることができます．
-    % workon #workonで作成した仮想環境の一覧を見ることができます．
+    (django_tutorial)% deactivate #deactivateで仮想環境から抜けることができます。
+    % workon #workonで作成した仮想環境の一覧を見ることができます。
     django_tutorial
-    % workon django_tutorial # workon <仮想環境名> で仮想環境に入ることができます．
-    (django_tutorial)% mkvirtualenv hogehoge # mkvirtualenv <仮想環境名> で仮想環境を作成することができます．
+    % workon django_tutorial # workon <仮想環境名> で仮想環境に入ることができます。
+    (django_tutorial)% mkvirtualenv hogehoge # mkvirtualenv <仮想環境名> で仮想環境を作成することができます。
     New python executable in hogehoge/bin/python
     Installing setuptools............done.
     Installing pip...............done.
     (hogehoge)% deactivate
-    (hogehoge)% rmvirtualenv hogehoge # rmvirtualenv <仮想環境名>で指定した仮想環境を削除することができます．
+    (hogehoge)% rmvirtualenv hogehoge # rmvirtualenv <仮想環境名>で指定した仮想環境を削除することができます。
     Removing hogehoge...
 
-仮想環境の作成まで完了したら，Djangoをインストールします．
-こちらもpipからインストールすることができます．
+仮想環境の作成まで完了したら、Djangoをインストールします。
+こちらもpipからインストールすることができます。
 
     (django_tutorial)% pip install django
 
 以上で準備は完了です！  
 
 
-次回はDjangoのプロジェクト作成からモデルの作成までをご紹介する予定です．
+次回はDjangoのプロジェクト作成からモデルの作成までをご紹介する予定です。
