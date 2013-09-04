@@ -149,13 +149,14 @@ querysetはイテレータブルなオブジェクトなので、`index.html`で
 `python manage.py runserver`で開発サーバを起動して、[http://127.0.0.1:8000](http://127.0.0.1:8000/)にアクセスすると下記のような画面が表示されると思います。  
 < Simple Board の画像を貼り付け>
 
+
 ## 最後に
 
 いささか駆け足でDjangoによるWebアプリ開発についてご紹介してきましたが、いかがでしたでしょうか。  
 DjangoによるWebアプリ開発の利便性を少しでも感じて頂ければ幸いです。  
 
 今回、使用したサンプルの完全版は以下から参照することができます。  
-<simpleboardをpushして、githubのurlを貼り付け>
+[shnmorimoto / django_sample_simple_board — Bitbucket](https://bitbucket.org/shnmorimoto/django_sample_simple_board)
 
 また時間の都合上、今回のチュートリアルでご説明できなかったTopicsは下記になります。  
 参考になりそうな参照先を記載していますので、お時間があるときにでもご確認頂ければと思います。  
