@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Django チュートリアル[テンプレート]"
-date: 2013-09-03 22:51
+date: 2013-09-09 00:00
 comments: false
-published: false
+published: true
 author: Shinichi Morimoto
 categories: django python tutorial
 ---
@@ -15,7 +15,7 @@ DjangoによるWebアプリ開発のチュートリアルは今回で最後に�
 
 ## Template(テンプレート)
 
-まずは前回の最後で作成した`index.html`について復習しましょう。
+まずは前回最後のパートで作成した`index.html`について復習しましょう。
 
 {% codeblock index.html lang:html %}
 
@@ -55,7 +55,7 @@ Djangoのテンプレートでは`変数`や`タグ`を使用することがで�
 `タグ`はテンプレート内で何らかの処理を行いたいときに使用します。  
 テンプレート中で`タグ`は{% raw %}`{% egg %}`{% endraw %}と記載されます。  
 例えば、テンプレート中で分岐処理を行いときは、{% raw %}`{% if ... %}`{% endraw %}タグ、ループ処理を行いたい時は{% raw %}`{% for ... %}`{% endraw %}タグ等が標準で用意されています。  
-またタグは自分で定義することもできます。
+もしくは、タグは自分で定義することもできます。
 
 前回作成したindex viewでテンプレートに渡されたコンテキストを確認しましょう。
 
@@ -152,14 +152,14 @@ querysetはイテレータブルなオブジェクトなので、`index.html`で
 
 ## 最後に
 
-いささか駆け足でDjangoによるWebアプリ開発についてご紹介してきましたが、いかがでしたでしょうか。  
-DjangoによるWebアプリ開発の利便性を少しでも感じて頂ければ幸いです。  
+いささか駆け足でDjangoによるWebアプリ開発について解説してまいりましたが、いかがでしたか。
+DjangoによるWebアプリ開発の利便性を、多少なりとも感じて頂ければ幸いです。  
 
-今回、使用したサンプルの完全版は以下から参照することができます。  
+今回使用したサンプルの完全版は、以下で参照することができます。  
 [shnmorimoto / django_sample_simple_board — Bitbucket](https://bitbucket.org/shnmorimoto/django_sample_simple_board)
 
-また時間の都合上、今回のチュートリアルでご説明できなかったTopicsの一部を下記に示します。
-参考になりそうな参照先も記載していますので、お時間があるときにでもご確認頂ければと思います。  
+また時間の都合上、今回のチュートリアルで解説できなかったTopicsの一部を以下に記載します。  
+参考になりそうな、参照先も記しますので、お時間あるときにご覧になってみてください。
 
 * QuerySetのAPI
 	* [QuerySet API リファレンス — Django 1.4 documentation](http://docs.djangoproject.jp/ja/latest/ref/models/querysets.html)
