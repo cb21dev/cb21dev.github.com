@@ -158,14 +158,16 @@ DjangoによるWebアプリ開発の利便性を少しでも感じて頂けれ�
 今回、使用したサンプルの完全版は以下から参照することができます。  
 [shnmorimoto / django_sample_simple_board — Bitbucket](https://bitbucket.org/shnmorimoto/django_sample_simple_board)
 
-また時間の都合上、今回のチュートリアルでご説明できなかったTopicsは下記になります。  
-参考になりそうな参照先を記載していますので、お時間があるときにでもご確認頂ければと思います。  
+また時間の都合上、今回のチュートリアルでご説明できなかったTopicsの一部を下記に示します。
+参考になりそうな参照先も記載していますので、お時間があるときにでもご確認頂ければと思います。  
 
 * QuerySetのAPI
 	* [QuerySet API リファレンス — Django 1.4 documentation](http://docs.djangoproject.jp/ja/latest/ref/models/querysets.html)
 * 汎用view
 	* [汎用ビュー — Django 1.4 documentation](http://docs.djangoproject.jp/ja/latest/topics/generic-views.html)
 	* [Django Class-Based-View Inspector -- Classy CBV](http://ccbv.co.uk/)
+* Templateの継承
+  * [Django テンプレート言語 — Django 1.4 documentation](http://docs.djangoproject.jp/ja/latest/topics/templates.html#template-inheritance)
 * Djangoのテスト環境
 	* [Djangoアプリケーションのテスト — Django 1.4 documentation](http://docs.djangoproject.jp/ja/latest/topics/testing.html)
 * southによるDB Migration
