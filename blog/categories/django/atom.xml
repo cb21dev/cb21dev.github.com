@@ -4,7 +4,7 @@
   <title><![CDATA[Category: django | 三人寄れば文殊の知恵]]></title>
   <link href="http://cb21dev.github.io/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://cb21dev.github.io/"/>
-  <updated>2013-09-09T01:15:09+09:00</updated>
+  <updated>2013-09-09T01:22:44+09:00</updated>
   <id>http://cb21dev.github.io/</id>
   <author>
     <name><![CDATA[cb21 development team]]></name>
@@ -100,7 +100,7 @@ DjangoによるWebアプリ開発のチュートリアルは今回で最後に�
 上記では<code>{{ entry.entry }}</code>が<code>変数</code>、<code>{% for entry in entries %}</code>、 <code>{% csrf_token %}</code>が<code>タグ</code>にあたります。</p>
 
 <p>テンプレート中で変数は<code>{{ spam }}</code>と記載します。<br/>
-コンテキストで<code>spam: 1</code>として渡した場合、テンプレート中の<code></code>は<code>1</code>に置き換えられます。</p>
+コンテキストで<code>spam: 1</code>として渡した場合、テンプレート中の<code>{{ spam }}</code>は<code>1</code>に置き換えられます。</p>
 
 <p><code>タグ</code>はテンプレート内で何らかの処理を行いたいときに使用します。<br/>
 テンプレート中で<code>タグ</code>は<code>{% egg %}</code>と記載されます。<br/>

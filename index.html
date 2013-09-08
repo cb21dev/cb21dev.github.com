@@ -170,7 +170,7 @@ DjangoによるWebアプリ開発のチュートリアルは今回で最後に�
 上記では<code>{{ entry.entry }}</code>が<code>変数</code>、<code>{% for entry in entries %}</code>、 <code>{% csrf_token %}</code>が<code>タグ</code>にあたります。</p>
 
 <p>テンプレート中で変数は<code>{{ spam }}</code>と記載します。<br/>
-コンテキストで<code>spam: 1</code>として渡した場合、テンプレート中の<code>`は</code>1`に置き換えられます。</p>
+コンテキストで<code>spam: 1</code>として渡した場合、テンプレート中の<code>{{ spam }}</code>は<code>1</code>に置き換えられます。</p>
 
 <p><code>タグ</code>はテンプレート内で何らかの処理を行いたいときに使用します。<br/>
 テンプレート中で<code>タグ</code>は<code>{% egg %}</code>と記載されます。<br/>
