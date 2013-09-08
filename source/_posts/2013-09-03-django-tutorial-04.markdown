@@ -147,12 +147,12 @@ querysetはイテレータブルなオブジェクトなので、`index.html`で
 {% endcodeblock %}
 
 `python manage.py runserver`で開発サーバを起動して、[http://127.0.0.1:8000](http://127.0.0.1:8000/)にアクセスすると下記のような画面が表示されると思います。  
-< Simple Board の画像を貼り付け>
+{% img /images/20130909/20130909_1.png 'SimpleBoard' 'this is a SimpleBoard' %}
 
 
 ## 最後に
 
-いささか駆け足でDjangoによるWebアプリ開発について解説してまいりましたが、いかがでしたか。
+いささか駆け足でDjangoによるWebアプリ開発について解説してまいりましたが、いかがでしたか。  
 DjangoによるWebアプリ開発の利便性を、多少なりとも感じて頂ければ幸いです。  
 
 今回使用したサンプルの完全版は、以下で参照することができます。  
