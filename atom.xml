@@ -4,7 +4,7 @@
   <title><![CDATA[三人寄れば文殊の知恵]]></title>
   <link href="http://cb21dev.github.io/atom.xml" rel="self"/>
   <link href="http://cb21dev.github.io/"/>
-  <updated>2013-09-02T23:20:31+09:00</updated>
+  <updated>2013-09-09T01:15:09+09:00</updated>
   <id>http://cb21dev.github.io/</id>
   <author>
     <name><![CDATA[cb21 development team]]></name>
@@ -12,6 +12,292 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Django チュートリアル[テンプレート]]]></title>
+    <link href="http://cb21dev.github.io/blog/2013/09/09/django-tutorial-04/"/>
+    <updated>2013-09-09T00:00:00+09:00</updated>
+    <id>http://cb21dev.github.io/blog/2013/09/09/django-tutorial-04</id>
+    <content type="html"><![CDATA[<p>こんにちは。Catchball21　技術部の森本です。</p>
+
+<p>本日はTemplate(テンプレート)についてご説明します。<br/>
+DjangoによるWebアプリ開発のチュートリアルは今回で最後になります。</p>
+
+<h2>Template(テンプレート)</h2>
+
+<p>まずは前回最後のパートで作成した<code>index.html</code>について復習しましょう。</p>
+
+<figure class='code'><figcaption><span>index.html </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;title&gt;</span>SimpleBoard<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;/&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    {% csrf_token %}
+</span><span class='line'>    {{ form }}
+</span><span class='line'>    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;登録&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/form&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    {% for entry in entries %}
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>{{ entry.entry }}<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    {% endfor %}
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>基本的にはhtmlそのものですが、<code>{{ entry.entry }}</code>や<code>{% for entry in entries %}</code>等、いくつか見慣れない構文がみられますね。</p>
+
+<p>Djangoのテンプレートでは<code>変数</code>や<code>タグ</code>を使用することができます。<br/>
+上記では<code>{{ entry.entry }}</code>が<code>変数</code>、<code>{% for entry in entries %}</code>、 <code>{% csrf_token %}</code>が<code>タグ</code>にあたります。</p>
+
+<p>テンプレート中で変数は<code>{{ spam }}</code>と記載します。<br/>
+コンテキストで<code>spam: 1</code>として渡した場合、テンプレート中の<code>`は</code>1`に置き換えられます。</p>
+
+<p><code>タグ</code>はテンプレート内で何らかの処理を行いたいときに使用します。<br/>
+テンプレート中で<code>タグ</code>は<code>{% egg %}</code>と記載されます。<br/>
+例えば、テンプレート中で分岐処理を行いときは、<code>{% if ... %}</code>タグ、ループ処理を行いたい時は<code>{% for ... %}</code>タグ等が標準で用意されています。<br/>
+もしくは、タグは自分で定義することもできます。</p>
+
+<p>前回作成したindex viewでテンプレートに渡されたコンテキストを確認しましょう。</p>
+
+<figure class='code'><figcaption><span>index.html </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'>    <span class="n">entries</span> <span class="o">=</span> <span class="n">Board</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">form</span> <span class="o">=</span> <span class="n">BoardForm</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span>
+</span><span class='line'>        <span class="s">&#39;index.html&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span>
+</span><span class='line'>            <span class="n">request</span><span class="p">,</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="s">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+</span><span class='line'>                <span class="s">&#39;entries&#39;</span><span class="p">:</span> <span class="n">entries</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">)</span>
+</span><span class='line'>    <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上記ではコンテキストとして、<code>form</code>変数にはBoardFormオブジェクト、<code>entries</code>変数にはBoardモデルのquerysetが渡されています。<br/>
+Formオブジェクトをテンプレートに渡した場合、テンプレート中でHTMLのフォームとして展開します。<br/>
+querysetはイテレータブルなオブジェクトなので、<code>index.html</code>では<code>{% for ... %}</code>タグを使用して、格納されているオブジェクトを取り出しています。</p>
+
+<p>最後に<a href="http://127.0.0.1:8000/">BootStrap</a>で少しレイアウトを整えた<code>index.html</code>を記載します。</p>
+
+<figure class='code'><figcaption><span>index.html </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;title&gt;</span>SimpleBoard<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>    <span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&lt;!-- Optional theme --&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//code.jquery.com/jquery.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;nav</span> <span class="na">class=</span><span class="s">&quot;navbar navbar-default&quot;</span> <span class="na">role=</span><span class="s">&quot;navigation&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="c">&lt;!-- Brand and toggle get grouped for better mobile display --&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;navbar-header&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;navbar-brand&quot;</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>SimpleBoard<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/nav&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-4&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-4&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">&quot;form-horizontal&quot;</span> <span class="na">role=</span><span class="s">&quot;form&quot;</span> <span class="na">action=</span><span class="s">&quot;/&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>          {% csrf_token %}
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-lg-10&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>              {{ form.entry }}
+</span><span class='line'>
+</span><span class='line'>            <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;form-group&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-lg-offset-2 col-lg-10&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">class=</span><span class="s">&quot;btn btn-default&quot;</span><span class="nt">&gt;</span>登録<span class="nt">&lt;/button&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/form&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>        {% for entry in entries %}
+</span><span class='line'>          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;panel panel-default&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;panel-body&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>              {{ entry.entry }}
+</span><span class='line'>            <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>        {% endfor %}
+</span><span class='line'>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-4&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>python manage.py runserver</code>で開発サーバを起動して、<a href="http://127.0.0.1:8000/">http://127.0.0.1:8000</a>にアクセスすると下記のような画面が表示されると思います。<br/>
+<img src="http://cb21dev.github.io/images/20130909/20130909_1.png" title="SimpleBoard" alt="this is a SimpleBoard"></p>
+
+<h2>最後に</h2>
+
+<p>いささか駆け足でDjangoによるWebアプリ開発について解説してまいりましたが、いかがでしたか。<br/>
+DjangoによるWebアプリ開発の利便性を、多少なりとも感じて頂ければ幸いです。</p>
+
+<p>今回使用したサンプルの完全版は、以下で参照することができます。<br/>
+<a href="https://bitbucket.org/shnmorimoto/django_sample_simple_board">shnmorimoto / django_sample_simple_board — Bitbucket</a></p>
+
+<p>また時間の都合上、今回のチュートリアルで解説できなかったTopicsの一部を以下に記載します。<br/>
+参考になりそうな、参照先も記しますので、お時間あるときにご覧になってみてください。</p>
+
+<ul>
+<li>QuerySetのAPI
+
+<ul>
+<li><a href="http://docs.djangoproject.jp/ja/latest/ref/models/querysets.html">QuerySet API リファレンス — Django 1.4 documentation</a></li>
+</ul>
+</li>
+<li>汎用view
+
+<ul>
+<li><a href="http://docs.djangoproject.jp/ja/latest/topics/generic-views.html">汎用ビュー — Django 1.4 documentation</a></li>
+<li><a href="http://ccbv.co.uk/">Django Class-Based-View Inspector &mdash; Classy CBV</a></li>
+</ul>
+</li>
+<li>Templateの継承
+
+<ul>
+<li><a href="http://docs.djangoproject.jp/ja/latest/topics/templates.html#template-inheritance">Django テンプレート言語 — Django 1.4 documentation</a></li>
+</ul>
+</li>
+<li>Djangoのテスト環境
+
+<ul>
+<li><a href="http://docs.djangoproject.jp/ja/latest/topics/testing.html">Djangoアプリケーションのテスト — Django 1.4 documentation</a></li>
+</ul>
+</li>
+<li>southによるDB Migration
+
+<ul>
+<li><a href="http://ae35.bitbucket.org/south-doc-ja/index.html">South ドキュメント — South v0.7 documentation</a></li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Django チュートリアル[view(ビュー)作成]]]></title>
