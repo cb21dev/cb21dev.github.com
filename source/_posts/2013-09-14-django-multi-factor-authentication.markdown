@@ -3,7 +3,8 @@ layout: post
 title: "Django のユーザー認証を二段階認証に対応する [ 準備編 ]"
 date: 2013-09-16 00:00
 comments: false
-published: false
+published: true
+author: Umeda Takefumi
 categories: django UmedaTakefumi two-factor 
 ---
 
@@ -54,16 +55,4 @@ Djangoでの認証の実装方法は、いくつかあります。
   * [https://github.com/Bouke/django-two-factor-auth](https://github.com/Bouke/django-two-factor-auth)
 
 次回は、このモジュールを利用し Django で2段階認証をコーディングする方法をご紹介したいと思います。
-
-
-
-
-
-
-
-
-
-
-
-
 
