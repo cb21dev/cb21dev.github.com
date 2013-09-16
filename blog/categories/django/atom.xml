@@ -4,7 +4,7 @@
   <title><![CDATA[Category: django | 三人寄れば文殊の知恵]]></title>
   <link href="http://cb21dev.github.io/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://cb21dev.github.io/"/>
-  <updated>2013-09-09T01:22:44+09:00</updated>
+  <updated>2013-09-16T19:23:43+09:00</updated>
   <id>http://cb21dev.github.io/</id>
   <author>
     <name><![CDATA[cb21 development team]]></name>
@@ -12,6 +12,96 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Django のユーザー認証を二段階認証に対応する [ 準備編 ]]]></title>
+    <link href="http://cb21dev.github.io/blog/2013/09/16/django-multi-factor-authentication/"/>
+    <updated>2013-09-16T00:00:00+09:00</updated>
+    <id>http://cb21dev.github.io/blog/2013/09/16/django-multi-factor-authentication</id>
+    <content type="html"><![CDATA[<p>こんにちは、Catchball21 技術部の梅田です。</p>
+
+<p>これから何回かに分けて、Django を使い、2段階認証に対応したアプリケーションの作成方法をご紹介したいと思います。今回は準備編です。</p>
+
+<h2>2段階認証とは</h2>
+
+<p>皆さんWebサービスを利用する際には、ユーザーIDとパスワードを利用していると思います。2段階認証とは、ユーザーIDとパスワード以外に新たにもう1つ要素を追加して、認証方式を強化するシステムのことです。追加する要素として下記のアイテムが主流になっています。</p>
+
+<ul>
+<li>USBトークン</li>
+<li>スマートカード</li>
+<li>バイオメトリクス（指紋認証,静脈認証,網膜認証,声紋認証）</li>
+<li>ワンタイムパスワード</li>
+</ul>
+
+
+<h2>2段階認証の必要性</h2>
+
+<p>近年、特定のWebサービスが何者かに攻撃されIDとパスワードが盗まれるという事件が頻発しています。そういった行為に対処する方法の1つとして2段階認証が注目され始めています。
+日本では数年前から、オンラインバンキングやMMORPGなどで利用されていますが、他分野でも導入の検討や、新たに導入した企業が複数あるようです。</p>
+
+<h2>主要なWebサービスは、2段階認証を提供している</h2>
+
+<p>主要なWebサービスは、2段階認証を提供しています。以下がそのリストになります。</p>
+
+<ul>
+<li>Google
+
+<ul>
+<li><a href="http://www.google.co.jp/intl/ja/landing/2step/" title="Google 2段階認証プロセス">Google 2段階認証プロセス</a></li>
+</ul>
+</li>
+<li>Apple ID
+
+<ul>
+<li><a href="http://support.apple.com/kb/HT5570?viewlocale=ja_JP&amp;locale=ja_JP" title="Apple ID：Apple ID の 2 段階認証についてよくお問い合わせいただく質問 (FAQ)">Apple ID：Apple ID の 2 段階認証についてよくお問い合わせいただく質問 (FAQ)</a></li>
+</ul>
+</li>
+<li>EVERNOTE
+
+<ul>
+<li><a href="https://www.evernote.com/shard/s184/sh/6406df73-45b4-4534-b601-d9635ffb223a/ecc94311e4eb5d155420fd40c5f3984b" title="2 段階認証">2 段階認証</a></li>
+</ul>
+</li>
+<li>Microsoft
+
+<ul>
+<li><a href="http://windows.microsoft.com/ja-jp/windows/two-step-verification-faq" title="2 段階認証: FAQ - Microsoft Windows">2 段階認証: FAQ &ndash; Microsoft Windows</a></li>
+</ul>
+</li>
+<li>Dropbox
+
+<ul>
+<li><a href="https://www.dropbox.com/help/363/ja" title="Dropbox - アカウントで 2 段階認証を有効にするには。">Dropbox &ndash; アカウントで 2 段階認証を有効にするには。</a></li>
+</ul>
+</li>
+<li>amazon web service
+
+<ul>
+<li><a href="http://aws.amazon.com/jp/mfa/" title="Multi-Factor Authentication | アマゾン ウェブ サービス（AWS 日本語）">Multi-Factor Authentication | アマゾン ウェブ サービス（AWS 日本語）</a></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Djangoで2段階認証を実装するには</h2>
+
+<p>今回はワンタイムパスワードを利用し、2段階認証を実装する方法をご紹介します。
+Djangoでの認証の実装方法は、いくつかあります。
+最も簡単な方法は Bouke Haarsma さんが作成した django-two-factor-auth というモジュールを利用する方法です。</p>
+
+<ul>
+<li>Bouke/django-two-factor-auth · GitHub
+
+<ul>
+<li><a href="https://github.com/Bouke/django-two-factor-auth">https://github.com/Bouke/django-two-factor-auth</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>次回は、このモジュールを利用し Django で2段階認証をコーディングする方法をご紹介したいと思います。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Django チュートリアル[テンプレート]]]></title>
